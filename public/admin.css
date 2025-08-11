@@ -1,0 +1,33 @@
+body {
+    background-color: #f8f9fa;
+}
+.nav-link.bg-hero{
+    border-radius: 0.25rem;
+}
+.table td:last-child, .table th:last-child {
+    width: 1%;
+}
+
+.bg-footer{
+    background-color: #111826;
+}
+
+.btn-dark{
+    background-color: #09487c;
+    /* border: 1px solid white; */
+    color: white;
+}
+
+.btn-dark:hover{
+    background-color: white;
+    border: 1px solid #09487c;
+    color: #09487c;
+}
+
+.text-hero{
+    color: #09487c;
+}
+
+.bg-hero{
+    background-color: #09487c;
+}

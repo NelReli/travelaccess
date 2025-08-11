@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TravelAccess - Découvrez des lieux touristiques accessibles{% endblock %}
+{% block meta_description %}Carte et guide des lieux touristiques accessibles aux personnes à mobilité réduite. Partagez vos découvertes avec la communauté TravelAccess.{% endblock %}
+{% block meta_keywords %}tourisme accessible, lieux touristiques, carte accessibilité, PMR{% endblock %}
+
+
+{% block body %}
+    {# Section Hero #}
+    <div class="p-5 text-center bg-hero text-white mb-5" >
+        <div class="container py-5 ">
+            <h1 class="display-4 fw-bold">TravelAccess: Voyagez Sans Limites</h1>
+            <p class="fs-5 mx-auto text-white" style="max-width: 900px;" >Découvrez un monde où l'aventure est accessible à tous. Notre communauté partage des expériences authentiques pour rendre chaque voyage possible, quelle que soit votre mobilité. </p>
+            <a class="btn btn-clear text-hero btn-lg mt-3 rounded-pill px-4" href=" {{ path('app_article_new') }} ">Partager une expérience</a>
+        </div>
+    </div>
+
+    {# Section Navigation "à voir si je garde" #}
+    <div class="container mb-5" style="max-width: 1100px; width:100%;">
+        <form class="d-flex gap-3" role="search">
+            <input class="form-control " type="search" placeholder="Rechercher des destinations" aria-label="Search"/>
+            <button class="btn btn-clear-transparent" type="submit">Search</button>
+            <button class="btn btn-clear-transparent" type="submit">Filtrer</button>
+        </form>
+    </div>
+    {# Section Articles Partagés #}
+    <div class="container" style="max-width: 1100px; width:100%;">
+        {# Card Article Partagé  #}
+        <div class="row">
+            {% for article in articles %}
+                {# Partie galerie images #}
+                <div class="col-md-5">
+                    <div class="gallery">
+                        {% for image in article.images|slice(0, 6) %}
+                            <div class="position-relative">
+                                <img class="gallery-img" src="{{ asset('images/articles/' ~ image.getName) }}" alt="Image galerie {{ loop.index }}" />
+                                    {% if loop.index == 6 and article.images|length > 6 %}
+                                        <div class="position-absolute gallery-img top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+                                            <div class="text-white fw-bold fs-4">
+                                                <span class="fw-bold">+ {{ article.images|length - 6 }}</span>                                          
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Partie Descriptif d'Article #}
+                <div class="col-md-7 align-self-end ">
+                    <div class="d-flex align-items-baseline">
+                        <p class="mb-0 me-3" >Accessibilité :</p>
+                        <div>
+                            {% for i in 1..5 %}
+                                {% if i <= article.rating %}
+                                    <span class="fs-5 text-warning" >&#9733;</span> 
+                                {% else %}
+                                    <span class="fs-5 text-light">&#9733;</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="my-2 small">
+                        <span>{{ article.city|title }}, {{ article.country|upper }}</span>
+                        <span>|</span>
+                        <span>{{ article.createdAt|date('d.m.Y') }}</span>
+                    </div>
+                    <h2 class="mb-2 fs-3"><a class="text-decoration-none title_article" href="{{ path('app_article_show', {'slug': article.slug, 'id': article.id}) }}">{{ article.title|upper }}</a></h2>
+                    <p class=" mb-2">{{ article.description|nl2br |slice(0, 300) ~ '...' }}</p>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <div>
+                            <img class="rounded-circle" src="{{ asset('images/avatars/' ~ article.author.avatar) }}" alt=" avatar de l'utilisateur {{ article.author.username }}" height="40" width="40" />
+                            <span class="align-bottom"><small> Publié par <strong><a class="text-reset text-decoration-none" href="{{ path('app_profile_show', {'username':  article.author.username}) }}">{{ article.author.username|title }}</a></strong></small></span>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <span class="badge text-dark"><i class="fa-regular fa-eye me-1"></i> {{ article.views }}</span>
+                            <span class="badge text-dark"><i class="fa-regular fa-comment me-1"></i> {{ commentCounts[article.id]|default(0) }}</span>
+                        </div>
+                    </div>
+                </div>
+                {# Trait de Séparation entres Article #}
+                {% if not loop.last %}
+                    <div class="container border-buttom my-5"></div>
+                {% endif %}
+            {% else %}
+                <p>Aucun article trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

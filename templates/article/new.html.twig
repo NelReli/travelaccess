@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez un nouvel article - TravelAccess{% endblock %}
+{% block meta_description %}Partagez un lieu touristique et aidez la communauté à voyager plus facilement.{% endblock %}
+
+
+{% block body %}
+    <div class="container d-flex flex-column align-items-center">
+        <h1 class="text-center m-5 ">Partagez votre expérience</h1>
+
+        <div class="card p-4 shadow mb-4 rounded-4 bg-area" style="max-width: 750px; width: 100%; ">
+            <p><strong>Conseils pour un bon article</strong></p>
+            <ul class="list-unstyled">
+                <li><i class="fa-solid fa-check mx-3 "></i>Intégrez naturellement les informations d'accessibilité dans votre récit</li>
+                <li><i class="fa-solid fa-check mx-3 "></i>Mentionnez les équipements spécifiques (ascenseurs, toilettes adaptées, rampes...)</li>
+                <li><i class="fa-solid fa-check mx-3 "></i>Partagez des conseils pratiques pour d'autres voyageurs</li>
+                <li><i class="fa-solid fa-check mx-3 "></i>Soyez honnête sur les aspects positifs et les difficultés rencontrées</li>
+                <li><i class="fa-solid fa-check mx-3 "></i>Ajoutez des photos pour illustrer l'accessibilité des lieux</li>
+            </ul>
+        </div>
+
+        <div class="card p-4 shadow rounded-4 mb-4" style="max-width: 750px; width: 100%; ">
+            {{ include('article/_form.html.twig') }}
+        </div>
+
+        <div class="mt-4 d-flex gap-2 flex-wrap justify-content-center">
+                <a href="{{ path('app_profile_show', {'username': app.user.username}) }}" class="btn btn-clear-transparent"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+                <a href="{{ path('app_home') }}" class="btn btn-clear-transparent"><i class="fas fa-home"></i> Retour à l'accueil</a>
+        </div>
+    </div>
+{% endblock %}

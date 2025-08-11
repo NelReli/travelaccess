@@ -1,0 +1,98 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejoindre TravelAccess{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-5 mb-2">Rejoindre TravelAccess</h1>
+    <p class="text-center mb-5">Créez votre compte et commencez à partager vos expériences de voyage accessibles</p>
+
+    <div class="container d-flex justify-content-center ">
+        <div class="card  p-5 shadow rounded-4" style="max-width: 650px; width: 100%; ">
+            {{ form_start(registrationForm) }}
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        {{ form_label(registrationForm.firstname, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.firstname) }}
+                        {{ form_errors(registrationForm.firstname) }}
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        {{ form_label(registrationForm.lastname, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.lastname) }}
+                        {{ form_errors(registrationForm.lastname) }}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.email) }}
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        {{ form_label(registrationForm.username, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.username) }}
+                        {{ form_errors(registrationForm.username) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        {{ form_label(registrationForm.bio, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.bio) }}
+                        {{ form_errors(registrationForm.bio) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        {{ form_label(registrationForm.avatar, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.avatar) }}
+                        {{ form_errors(registrationForm.avatar) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        {{ form_label(registrationForm.plainPassword.first, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.plainPassword.first) }}
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        {{ form_label(registrationForm.plainPassword.second, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(registrationForm.plainPassword.second) }}
+                        
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check text-start">
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(registrationForm.agreeTerms, {'label_attr': {'class': 'form-check-label'}}) }}
+                    {{ form_errors(registrationForm.agreeTerms) }}
+                </div>
+
+                <button type="submit" class="btn btn-dark col-12">Créer mon compte</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+
+    <p class="text-center mt-4">Déjà membre ? <a class="link-color" href="{{ path('app_login') }}">Connectez-vous</a></p>
+
+    <div class="container mt-5 ps-5" style="max-width: 800px; width: 100%;">
+            <div class="row gx-3">
+                <p class="mb-4">Pourquoi rejoindre TravelAccess ?</p>
+                <div class="col-lg-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Partagez vos expériences de voyage accessibles</li>
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Découvrez des destinations accessibles</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Aidez d'autres voyageurs à mobilité réduite</li>
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Rejoignez une communauté bienveillante</li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+
+{% endblock %}

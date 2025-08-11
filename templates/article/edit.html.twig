@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Article{% endblock %}
+
+{% block body %}
+    <div class="container d-flex flex-column align-items-center">
+        <h1 class="text-center m-5 ">Modifier l'article</h1>
+        <div class="card p-4 shadow rounded-4 mb-4" style="max-width: 750px; width: 100%; ">
+            {{ include('article/_form.html.twig') }}
+        </div>
+        
+        <div class="d-flex gap-2 flex-wrap justify-content-center my-3">
+            <a href="{{ path('app_profile_show', {'username': app.user.username}) }}" class="btn btn-clear-transparent "><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+            
+            <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                <button class="btn btn-clear-transparent"><small><i class="fas fa-trash"></i> Supprimer l'article</small></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

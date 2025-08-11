@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-5">Modifier mon profil</h1>
+    <div class="container my-5 d-flex justify-content-center ">
+        <div class="card p-5 shadow rounded-4" style="max-width: 650px; width: 100%; ">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}

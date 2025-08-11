@@ -1,0 +1,28 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <h2 class="mb-4">Liste des articles</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Titre</th><th>Auteur</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.title }}</td>
+                <td>{{ article.author.username }}</td>
+                <td>
+                    <form method="post" action="{{ path('admin_delete_article', {'slug': article.slug, 'id': article.id}) }}" onsubmit="return confirm('Confirmer la suppression de cet article ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete-article' ~ article.id) }}">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

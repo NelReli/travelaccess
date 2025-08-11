@@ -1,0 +1,69 @@
+    {# Affichage et suppression des images EN DEHORS du formulaire principal #}
+    <div class="row mt-4 justify-content-center">
+        {% for image in article.images %}
+            <div class="col-md-3 text-center mb-3 ">
+                <img src="{{ asset('images/articles/' ~ image.getName) }}" class="img-thumbnail profile-img" alt="Image galerie {{ loop.index }}" style="height: 200px; width: 200px;"/>
+
+                <form method="post" action="{{ path('app_image_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                    <button class="btn btn-sm btn-clear mt-2 rounded">X</button>
+                </form>
+            </div>
+            {% if loop.last %}
+                <div class="container border-buttom border-2 border-dashed my-3" ></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {# Partie formulaire commune #}
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col mb-3">
+                {{ form_label(form.title, null, {'label_attr': {'class': 'w-100'}}) }}
+                {{ form_widget(form.title) }}
+                {{ form_errors(form.title) }}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                {{ form_label(form.city, null, {'label_attr': {'class': 'w-100'}}) }}
+                {{ form_widget(form.city) }}
+                {{ form_errors(form.city) }}
+            </div>
+            <div class="col-lg-6 mb-3">
+                {{ form_label(form.country, null, {'label_attr': {'class': 'w-100'}}) }}
+                {{ form_widget(form.country) }}
+                {{ form_errors(form.country) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col mb-3">
+                {{ form_label(form.rating, null, {'label_attr': {'class': 'w-100'}}) }}
+                {{ form_widget(form.rating) }}
+                {{ form_errors(form.rating) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col mb-3">
+                {{ form_label(form.images, null, {'label_attr': {'class': 'w-100'}}) }}
+                {{ form_widget(form.images) }}
+                {{ form_errors(form.images) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col mb-3">
+                {{ form_label(form.description, null, {'label_attr': {'class': 'w-100'}}) }}
+                {{ form_widget(form.description, {'attr': { style:"height: 300px"}}) }}
+                {{ form_errors(form.description) }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark col-12">Publier l'article</button>
+    {{ form_end(form) }}
+
+    
+
