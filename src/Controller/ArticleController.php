@@ -87,10 +87,7 @@ final class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}-{id}', name: 'app_article_show', methods: ['GET', 'POST'], requirements: [
-        'slug' => Requirement::ASCII_SLUG,
-        'id' => Requirement::DIGITS
-    ])]
+    #[Route('/{slug}-{id}', name: 'app_article_show', methods: ['GET', 'POST'], requirements: ['slug' => Requirement::ASCII_SLUG,'id' => Requirement::DIGITS])]
     public function show(Article $article, EntityManagerInterface $em, Request $request, CommentRepository $commentRepository): Response
     {
         // création nombre de vue

@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Article;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,7 +18,7 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function countArticles(): int
     {
-        return $this->createQueryBuilder('u')
+        return (int) $this->createQueryBuilder('u')
             ->select('COUNT(u.id)')
             ->getQuery()
             ->getSingleScalarResult();
@@ -34,7 +33,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function findLastArticles(int $limit = 5)
+    public function findLastArticles(int $limit = 5): array
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.createdAt', 'DESC')
@@ -42,10 +41,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-
-
-
 
 
 

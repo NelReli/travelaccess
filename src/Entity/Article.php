@@ -85,7 +85,7 @@ class Article
 
     public function setTitle(string $title): static
     {
-        $this->title = strtolower($title);
+        $this->title = $title;
 
         // Génère automatiquement le slug lors de la saisie du titre
         $slugger = new AsciiSlugger();

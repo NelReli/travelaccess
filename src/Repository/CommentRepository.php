@@ -33,7 +33,7 @@ class CommentRepository extends ServiceEntityRepository
         return $counts;
     }
 
-    public function findLastComments(int $limit = 5)
+    public function findLastComments(int $limit = 5): array
     {
         return $this->createQueryBuilder('c')
             ->orderBy('c.createdAt', 'DESC')
