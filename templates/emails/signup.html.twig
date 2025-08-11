@@ -1,0 +1,12 @@
+<div class="container">
+        <h3 class="text-primary mb-3">Une nouvelle demande de contact a été reçue</h3>
+
+        <p ><strong>Nom :</strong> {{ data.name }}</p>
+        <p ><strong>Email :</strong> {{ data.email }}</p>
+        <p class="mb-3"><strong>Sujet :</strong> {{ data.subject }}</p>
+
+        <p class="fw-bold mb-1"><strong>Message :</strong></p>
+        <div class="bg-light">
+            <p>{{ data.message|nl2br }}</p>
+        </div>
+</div>

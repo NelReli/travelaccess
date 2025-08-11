@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez TravelAccess{% endblock %}
+{% block meta_description %}Besoin d'aide ou envie de collaborer ? Contactez l'équipe TravelAccess pour toute question sur le tourisme accessible.{% endblock %}
+
+
+{% block body %}
+<div class="container">
+
+    <nav class="mt-4" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-reset text-decoration-none" href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contact</li>
+        </ol>
+    </nav>
+
+    <h1 class="text-center m-5 ">Contactez-nous</h1>
+    <p class="text-center mx-auto" style="max-width: 600px;">Nous sommes là pour vous aider ! N'hésitez pas à nous contacter pour toute question, suggestion ou problème concernant TravelAccess.</p>
+    <div class="container d-flex justify-content-center mt-5 text-light" >
+        <div class="card p-4 shadow rounded-4" style="max-width: 600px; width: 100%; ">
+
+            {{ form_start(contactForm) }}
+
+                <div class="row">
+                    <div class="col mb-3">
+                        {{ form_label(contactForm.name, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(contactForm.name) }}
+                        {{ form_errors(contactForm.name) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        {{ form_label(contactForm.email, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(contactForm.email) }}
+                        {{ form_errors(contactForm.email) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        {{ form_label(contactForm.subject, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(contactForm.subject) }}
+                        {{ form_errors(contactForm.subject) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        {{ form_label(contactForm.message, null,  {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(contactForm.message, {'attr': { style:"height: 250px"}}) }}
+                        {{ form_errors(contactForm.message) }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-dark col-12">Envoyer le message</button>
+
+            {{ form_end(contactForm) }}
+        </div>
+    </div>
+    <div class="my-4 text-center">
+        <a href="{{ path('app_home') }}" class="btn btn-clear-transparent"><i class="fas fa-home"></i> Retour à l'accueil</a>                   
+    </div>
+
+</div>
+{% endblock %}
+
+

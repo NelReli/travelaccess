@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.username }} - Contributions sur TravelAccess{% endblock %}
+{% block meta_description %}Découvrez les lieux accessibles partagés par {{ user.username }} sur TravelAccess.{% endblock %}
+{% block meta_keywords %}profil, {{ user.username }}, tourisme accessible, PMR{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <nav class="mt-4" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-reset text-decoration-none" href="{{ path('app_home') }}">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ user.username|title }}</li>
+            </ol>
+        </nav>
+
+        <div class="row my-5">
+            {# Partie Profile #}
+            <div class="col-lg-3 col-md-4 mb-5">
+                <div class="sticky-top" style="top: 6.5rem; ; z-index: 10">
+                    <div class="card rounded-4 shadow-lg overflow-hidden">
+                        <div class="card-header bg-white  position-relative border-0" style="height: 6rem;">
+                            {% if user.avatar %}
+                                <img src="{{ asset('images/avatars/' ~ user.avatar) }}"
+                                    alt="Avatar de {{ user.username }}"
+                                    class="rounded-circle bg-white position-absolute top-100 start-50 translate-middle border border-5 border-white shadow"
+                                    style="height: 100px; width: 100px; object-fit: cover">
+                            {% endif %}
+                        </div>
+                        <div class="card-body mt-3 pt-5">
+                            <div class="d-flex justify-content-center align-items-center gap-2 mb-4">
+                                <h5 class="card-title mb-0">{{ user.username|title }}</h5>
+                                {% if is_granted('POST_EDIT', user) %}
+                                    <div>
+                                        <a href="{{ path('app_profile_edit', {'username': user.username}) }}" class="text-decoration-none text-muted"><i class="fas fa-edit"></i></a>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            {% if is_granted('POST_EDIT', user) %}
+                                <div class="mb-3">
+                                    <p class="card-text px-3 mb-1 text-muted small">Nom et prénom : {{ user.firstname }} {{ user.lastname }}</p>
+                                    <p class="card-text px-3 mb-0 text-muted small">Email : {{ user.email }}</p>
+                                </div>
+                                <hr class="mx-3"> 
+                            {% endif %}
+
+                            {% if user.bio %}
+                                <p class="card-text px-3">{{ user.bio|nl2br }}</p>
+                            {% else %}
+                                <p class="card-text px-3 text-muted fst-italic">Aucune biographie renseignée.</p>
+                            {% endif %}
+                            <p class="card-text text-muted p-3 small">Membre depuis : {{ user.createdAt|date('d/m/Y') }}</p>
+
+                            {% if is_granted('POST_EDIT', user) %}
+                                <div class="text-center pb-2">
+                                    <a href="{{ path('app_article_new') }}" class="btn btn-dark rounded-pill px-4">Nouvel article</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+                {# Partie Articles Partagés #}
+                <div class="ms-lg-4">
+                    <div class="rounded-4 shadow-sm bg-white p-4 mb-4 border-0">
+                        <h1 class="fs-2 text-center fw-bold ">Articles partagés</h1>
+                    </div>
+                    {% if articles is not empty %}
+                        {% for article in articles %}
+                            <div class="card mb-4 rounded-4 overflow-hidden shadow-sm border-0 p-3">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <h2 class="fs-3 text-dark mb-0">
+                                            <a href="{{ path('app_article_show', {'slug': article.slug, id: article.id}) }}" class="text-decoration-none text-dark">
+                                                {{ article.title }}
+                                            </a>
+                                        </h2>
+                                        {% if is_granted('POST_EDIT', article) %}
+                                            <div class="dropdown">
+                                                <button class="btn btn-white btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-three-dots-vertical"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="{{ path('app_article_edit', {id: article.id}) }}" class="dropdown-item"><i class="fas fa-edit me-2"></i>Modifier l'article</a>
+                                                    </li>
+                                                    <li>
+                                                        {% if is_granted('POST_DELETE', article) %}
+                                                            {{ include('article/_delete_form.html.twig', { article: article }) }}
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <p class="text-muted mb-3">{{ article.description|slice(0, 300) ~ '...' }}</p>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center small text-muted mb-3">
+                                        <span>Publié le {{ article.createdAt|date('d/m/Y H:i') }}</span>
+                                        <div class="d-flex gap-3">
+                                            <span class="badge text-dark"><i class="fa-regular fa-eye me-1"></i> {{ article.views }}</span>
+                                            <span class="badge text-dark"><i class="fa-regular fa-comment me-1"></i> {{ commentCounts[article.id]|default(0) }}</span>
+                                        </div>
+                                    </div>
+
+                                    {# Images de l'article #}
+                                    <div class="row g-2 mb-3">
+                                        {% if article.images|length > 0 %}
+                                            {% for image in article.images|slice(0, 3) %}
+                                                <div class="col-12 col-sm-6 col-md-4">
+                                                    <div class="position-relative gallery-img overflow-hidden rounded-3 shadow-sm" style="height: 200px;">
+                                                        <img class="w-100 h-100" style="object-fit: cover;" src="{{ asset('images/articles/' ~ image.getName) }}" alt="Image de l'article {{ loop.index }}">
+                                                        {% if loop.index == 3 and article.images|length > 3 %}
+                                                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+                                                                <span class="text-white fw-bold fs-4">+ {{ article.images|length - 3 }}</span>                                          
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div class="col-12">
+                                                <p class="text-muted text-center py-3">Aucune image disponible</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="text-center pt-3 border-top">
+                                        <a href="{{ path('app_article_show', {slug: article.slug, id: article.id}) }}" class="btn btn-dark rounded-pill px-4">Voir l'article</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="d-flex flex-column justify-content-center align-items-center p-4 bg-light mb-3 rounded-4 border" style="min-height: 300px;">
+                            <p class="mb-3">Aucun article publié pour le moment.</p>
+                            <a class="btn btn-dark rounded-pill px-4" href="{{ path('app_article_new') }}">Partager une expérience</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="d-flex gap-2 flex-wrap justify-content-center mb-5">
+                    <a href="{{ path('app_home') }}" class="btn btn-clear-transparent">
+                        <i class="fas fa-home me-2"></i> Retour à l'accueil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

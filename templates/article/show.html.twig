@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }} - Accessibilité et infos pratiques{% endblock %}
+{% block meta_description %}{{ article.description|slice(0, 150) }}...{% endblock %}
+{% block meta_keywords %}{{ article.title }}, tourisme accessible, voyage PMR, {{ article.city }}, {{ article.country }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {# fil d'ariane #}
+        <nav class="mt-4" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-reset text-decoration-none" href="{{ path('app_home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a class="text-reset text-decoration-none" href="{{ path('app_profile_show', {'username':  article.author.username}) }}">{{ article.author.username|title}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ article.title|title }}</li>
+            </ol>
+        </nav>
+
+        <div class="my-5">
+            <div class="card p-5 shadow rounded-4 mx-auto" style="max-width: 900px; width: 100%;">
+                
+                {# Carrousel d'images #}
+                {% if article.images is not empty %}
+                    <div id="carouselArticleImages" class="carousel slide mb-4" data-bs-ride="carousel">
+                        {# Indicateurs #}
+                        {% if article.images|length > 1 %}
+                            <div class="carousel-indicators">
+                                {% for image in article.images %}
+                                    <button type="button" 
+                                            data-bs-target="#carouselArticleImages" 
+                                            data-bs-slide-to="{{ loop.index0 }}" 
+                                            {% if loop.first %}class="active" aria-current="true"{% endif %}
+                                            aria-label="Slide {{ loop.index }}">
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {# Images du carrousel #}
+                        <div class="carousel-inner rounded">
+                            {% for image in article.images %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img src="{{ asset('images/articles/' ~ image.getName) }}" class="d-block w-100" alt="{{ article.title }} - Image {{ loop.index }}" style="height: 400px; object-fit: cover;">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {# Boutons de navigation (seulement si plusieurs images) #}
+                        {% if article.images|length > 1 %}
+                            <button class="carousel-control-prev" 
+                                    type="button" 
+                                    data-bs-target="#carouselArticleImages" 
+                                    data-bs-slide="prev"
+                                    aria-label="Image précédente">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Précédent</span>
+                            </button>
+                            <button class="carousel-control-next" 
+                                    type="button" 
+                                    data-bs-target="#carouselArticleImages" 
+                                    data-bs-slide="next"
+                                    aria-label="Image suivante">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Suivant</span>
+                            </button>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {# Informations de l'article #}
+                <div>
+                    <div class="d-flex align-items-baseline">
+                        <p class="mb-0 me-3" >Note d'accessibilité :</p>
+                        <div>
+                            {% for i in 1..5 %}
+                                {% if i <= article.rating %}
+                                    <span class="fs-5 text-warning" >&#9733;</span> 
+                                {% else %}
+                                    <span class="fs-5 text-light">&#9733;</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <h2 class="my-2 title_article">{{ article.title|title }}</h2>
+                    <div class="my-2 small">
+                        <span class="city">{{ article.city|title }}, {{ article.country|upper }}</span>
+                        <span class="separator">|</span>
+                        <span class="date">{{ article.createdAt|date('d.m.Y') }}</span>
+                    </div>
+                        
+                    <div class="d-flex justify-content-between align-items-end mb-3">
+                        <div class="author d-flex gap-2 align-items-center">
+                            <img class="rounded-circle" src="{{ asset('images/avatars/' ~ article.author.avatar) }}" alt=" nom de l'utilisateur {{ article.author.firstname ~ article.author.lastname }}" height="50" width="50" />
+                            <div class="d-flex flex-column">
+                                <span class="small">Publié par </span>
+                                <span> <strong><a class="text-reset text-decoration-none" href="{{ path('app_profile_show', {'username':  article.author.username}) }}">{{ article.author.username|title }}</a></strong></span>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <span class="badge text-dark"><i class="fa-regular fa-eye me-1"></i> {{ article.views }}</span>
+                            <span class="badge text-dark"><i class="fa-regular fa-comment me-1"></i> {{ commentCounts[article.id]|default(0) }}</span>
+                        </div>
+                    </div>
+                    <p class=" mb-2">{{ article.description|nl2br }}</p>
+                </div>
+                
+                {# Boutons d'administration (seul celui qui a publié l article) #}
+                <div class="d-flex justify-content-end my-3">
+                    {% if is_granted('POST_EDIT', article) %}
+                        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn"><small><i class="fas fa-edit"></i> Modifier l'article</small></a>
+                    {% endif %}
+
+                    {% if is_granted('POST_DELETE', article) %}
+                        {{ include('article/_delete_form.html.twig', { article: article }) }}
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Boutons d'action #}
+            <div class="mt-4 d-flex gap-2 flex-wrap justify-content-center">
+                {# Bouton retour #}
+                {% if is_granted('POST_EDIT', article) %}
+                    <a href="{{ path('app_profile_show', {'username': app.user.username}) }}" class="btn btn-clear-transparent"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+                {% endif %}
+                <a href="{{ path('app_home') }}" class="btn btn-clear-transparent"><i class="fas fa-home"></i> Retour à l'accueil</a>                   
+            </div>
+
+        </div>
+
+        {# commentaires #}
+        <div class="my-5">
+            <div class="card p-5 shadow rounded-4 mx-auto" style="max-width: 900px; width: 100%;">
+                <h5 class="mb-5"><i class="fa-regular fa-comment"></i> Commentaires : <span class="me-3"> {{ commentCounts[article.id]|default(0) }}</span></h5>
+                {% if  is_granted('IS_AUTHENTICATED_FULLY')  %}
+                    <div>
+                        {{ form_start(comment_form) }}
+                            <div class="row">
+                                <div class="col mb-3">
+                                    {{ form_label(comment_form.comment, null, {'label_attr': {'class': 'w-100'}}) }}
+                                    {{ form_widget(comment_form.comment) }}
+                                    {{ form_errors(comment_form.comment) }}
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-dark mb-5 px-3"><small><i class="bi bi-send me-2"></i>Envoyer</small></button>
+                        {{ form_end(comment_form) }}
+                    </div>
+                {% else %}
+                    <div class="text-center p-4 bg-area mb-4 rounded-4">
+                        <p>Connectez-vous pour participer à la discussion</p>
+                        <a class="btn btn-dark" href="{{ path('app_login') }}">Se connecter</a>
+                    </div>
+                {% endif %}
+
+                {% for comment in article.comments %}
+                    <div class="comment row p-4">
+                        <div class="col-2 d-none d-sm-block text-center"><img class="rounded-circle shadaw" src="{{ asset('images/avatars/' ~ comment.author.avatar) }}" alt=" avatar de l'utilisateur {{ article.author.username}}" height="70" width="70" /></div>
+                            <div class="col-sm-10 col-12 bg-area rounded-4 mb-3 p-3">
+                                <div class="d-flex justify-content-between ">
+                                    <p>{{ comment.author.username }}</p>
+                                    <p><small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small></p>
+                                </div>
+                                <p>{{ comment.comment }}</p>
+                            </div>    
+                        </div>    
+                    </div>
+                {% else %}
+                    <p>Aucun commentaire pour le moment.</p>
+                {% endfor %}
+            </div>
+        </div>      
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales et CGU - TravelAccess{% endblock %}
+{% block meta_description %}Lisez nos mentions légales et conditions générales d'utilisation pour comprendre le fonctionnement de TravelAccess et la protection de vos données.{% endblock %}
+
+
+{% block body %}
+
+<div class="container ">
+
+    <h1 class="text-center my-5">Mentions légales <br>et Conditions Générales d'Utilisation</h1>
+    <div class="d-flex justify-content-center ">
+
+        <div class="card  p-5 shadow rounded-4" style="max-width: 850px; width: 100%; ">
+
+            <h5>1. Mentions légales</h5>
+            <p><strong>Éditeur du site :</strong> TravelAccess<br>
+            <strong>Adresse :</strong> Paris<br>
+            <strong>Email :</strong> admin@travelaccess.com<br>
+            <strong>Téléphone :</strong> 06.00.00.00.00<br>
+            <strong>SIRET :</strong> XXXXXXXXXXXXXX<br>
+            <strong>Responsable de publication :</strong> John Doe<br>
+            <strong>Hébergeur :</strong> John Doe</p>
+
+            <h5>2. Objet</h5>
+            <p>Les présentes Conditions Générales d'Utilisation (CGU) définissent les règles d'utilisation du site <strong>[Nom du site]</strong> (ci-après « le Site »).</p>
+
+            <h5>3. Acceptation des CGU</h5>
+            <p>En accédant au Site, vous acceptez sans réserve les présentes CGU.</p>
+
+            <h5>4. Accès au site</h5>
+            <p>Le Site est accessible gratuitement à tout utilisateur disposant d'un accès à Internet. Les frais liés à la connexion restent à votre charge.</p>
+
+            <h5>5. Propriété intellectuelle</h5>
+            <p>Tous les contenus du Site (textes, images, logos, etc.) sont protégés par le droit d'auteur. Toute reproduction ou utilisation non autorisée est interdite.</p>
+
+            <h5>6. Responsabilités</h5>
+            <p>L'éditeur ne peut être tenu responsable en cas de mauvaise utilisation du Site ou d'interruption temporaire.</p>
+
+            <h5>7. Données personnelles</h5>
+            <p>La collecte et le traitement des données personnelles sont décrits dans la <a href="{{ path('app_mentions') }}">Politique de Confidentialité</a>.</p>
+
+            <h5>8. Droit applicable</h5>
+            <p>Les présentes CGU sont régies par le droit français. Tout litige sera soumis aux tribunaux compétents.</p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
