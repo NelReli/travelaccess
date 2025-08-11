@@ -9,6 +9,9 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
+
+//connexion avec email ou nom d'utilisateur :
+
 /**
  * @extends ServiceEntityRepository<User>
  */
@@ -31,15 +34,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
     }
 
-
-    public function countUsers(): int
-    {
-        return $this->createQueryBuilder('u')
-            ->select('COUNT(u.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
-
+    //Réinitialisation mot de passe avec hashage :
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
@@ -55,7 +50,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    public function findLastUsers(int $limit = 5)
+    // total des utilisateurs :
+    public function countUsers(): int
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    // les 5 derniers utilisateurs inscrit :
+    public function findLastUsers(int $limit = 5): array
     {
         return $this->createQueryBuilder('u')
             ->orderBy('u.createdAt', 'DESC')
