@@ -69,6 +69,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+    public function findUsersWithArticleCount(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u AS user, COUNT(a.id) AS articleCount')
+            ->leftJoin('u.articles', 'a')
+            ->groupBy('u.id')
+            ->orderBy('articleCount', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 
     //    /**

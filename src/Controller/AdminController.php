@@ -9,22 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
+
 
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
-    // private ArticleRepository $articleRepository;
-    // private Security $security;
-
-    // public function __construct(ArticleRepository $articleRepository, 
-    // Security $security
-    // )
-    // {
-    //     $this->articleRepository = $articleRepository;
-    //     $this->security = $security;
-    // }
-
     #[Route('/', name: 'admin_dashboard')]
     public function dashboard(
         UserRepository $userRepo,
@@ -34,12 +23,6 @@ class AdminController extends AbstractController
         $lastArticles = $articleRepo->findLastArticles();
         $lastComments = $commentRepo->findLastComments();
         $lastUsers = $userRepo->findLastUsers();
-        // $user = $this->security->getUser();
-
-        // $countUserArticles = 0;
-        // if ($user) {
-        //     $countUserArticles = $this->articleRepository->countPublicatedUserArticles($user);
-        // }
 
         return $this->render('admin/dashboard.html.twig', [
             'userCount' => $userRepo->count([]),
@@ -48,14 +31,17 @@ class AdminController extends AbstractController
             'lastArticles' => $lastArticles,
             'lastComments' => $lastComments,
             'lastUsers' => $lastUsers,
-            // 'countUserArticles' => $countUserArticles,
         ]);
     }
 
+
     #[Route('/users', name: 'admin_users')]
-    public function users(UserRepository $userRepo): Response {
+    public function users(UserRepository $userRepo): Response
+    {
+        $usersWithCounts = $userRepo->findUsersWithArticleCount(true);
+
         return $this->render('admin/users.html.twig', [
-            'users' => $userRepo->findAll(),
+            'usersWithCounts' => $usersWithCounts,
         ]);
     }
 
@@ -74,6 +60,7 @@ class AdminController extends AbstractController
         }
         return $this->redirectToRoute('admin_users');
     }
+
 
     #[Route('/articles', name: 'admin_articles')]
     public function articles(ArticleRepository $articleRepo): Response {
@@ -97,6 +84,7 @@ class AdminController extends AbstractController
         }
         return $this->redirectToRoute('admin_articles');
     }
+
 
     #[Route('/comments', name: 'admin_comments')]
     public function comments(CommentRepository $commentRepo): Response {

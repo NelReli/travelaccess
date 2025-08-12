@@ -23,17 +23,17 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
-    private ?string $title = null;
+    #[Assert\Length(min: 5)]  
+    private string $title = '';
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')]
-    private string $slug;
+    private string $slug = '';
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 10)]
-    private ?string $description = null;
+    private string $description = '';
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -48,13 +48,13 @@ class Article
     /**
      * @var Collection<int, Image>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'article', orphanRemoval: true, cascade: ['remove'])]
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'article', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $images;
 
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'article', orphanRemoval: true, cascade: ['remove'])]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'article', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $comments;
 
     #[ORM\Column(type: 'integer')]
@@ -78,7 +78,7 @@ class Article
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -94,7 +94,7 @@ class Article
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -105,7 +105,7 @@ class Article
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
