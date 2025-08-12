@@ -22,18 +22,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-
-    public function loadUserByIdentifier(string $identifier): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.email = :query')
-            ->orWhere('u.username = :query')
-            ->setParameter('query', $identifier)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     //Réinitialisation mot de passe avec hashage :
 
     /**
@@ -49,6 +37,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+
+
+    //connexion avec mail ou username
+    public function loadUserByIdentifier(string $identifier): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :query')
+            ->orWhere('u.username = :query')
+            ->setParameter('query', $identifier)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     // total des utilisateurs :
     public function countUsers(): int

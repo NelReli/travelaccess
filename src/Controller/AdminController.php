@@ -18,7 +18,7 @@ class AdminController extends AbstractController
     public function dashboard(
         UserRepository $userRepo,
         ArticleRepository $articleRepo,
-        CommentRepository $commentRepo
+        CommentRepository $commentRepo,
     ): Response {
         $lastArticles = $articleRepo->findLastArticles();
         $lastComments = $commentRepo->findLastComments();
