@@ -19,10 +19,12 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
+                'empty_data' => '',
                 'label' => 'Titre de votre expérience *',
                 'attr' => ['placeholder' => 'Ex: Le Louvre : Un musée accessible à tous'],
             ])
             ->add('description', TextareaType::class, [
+                'empty_data' => '',
                 'label' => 'Votre expérience',
                 'attr' => ['placeholder' => 'Racontez votre expérience en détail. Intégrez naturellement les informations d\'accéssibilité : comment vous êtes arrivé, les équipements disponibles, les difficultés rencontrées, vos conseils...'],
             ])
@@ -54,20 +56,20 @@ class ArticleType extends AbstractType
                 ],
             ])
             ->add('rating', ChoiceType::class, [
-    'choices' => [
-        'Aucune étoile (pas accessibile)' => 0,
-        '1 étoile (très difficile)' => 1,
-        '2 étoiles (difficile)' => 2,
-        '3 étoiles (modéré)' => 3,
-        '4 étoiles (bon)' => 4,
-        '5 étoiles (facile)' => 5,
-    ],
-    'expanded' => false,
-    'multiple' => false,
-    'label' => 'Accessibilité *',
-    'placeholder' => "Note d'accessibilité (0-5 étoiles)",
-    'required' => false,
-])
+                'choices' => [
+                    'Aucune étoile (pas accessibile)' => 0,
+                    '1 étoile (très difficile)' => 1,
+                    '2 étoiles (difficile)' => 2,
+                    '3 étoiles (modéré)' => 3,
+                    '4 étoiles (bon)' => 4,
+                    '5 étoiles (facile)' => 5,
+                ],
+                'expanded' => false,
+                'multiple' => false,
+                'label' => 'Accessibilité *',
+                'placeholder' => "Note d'accessibilité (0-5 étoiles)",
+                'required' => false,
+            ])
 
 
             // ->add('createdAt', null, [

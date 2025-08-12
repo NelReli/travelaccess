@@ -18,8 +18,8 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function countArticles(): int
     {
-        return (int) $this->createQueryBuilder('u')
-            ->select('COUNT(u.id)')
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
     }

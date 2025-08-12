@@ -8,17 +8,17 @@ class ContactDTO
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, max: 255)]
-    public string $name;
+    public string $name = '';
     
     #[Assert\NotBlank]
     #[Assert\Email]
-    public string $email;
+    public string $email = '';
     
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, max: 255)]
-    public string $subject;
+    public string $subject = '';
     
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, minMessage: "Le message doit faire au moins 10 caractères.")]
-    public string $message;
+    public string $message = '';
 }

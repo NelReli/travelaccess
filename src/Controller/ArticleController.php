@@ -29,6 +29,7 @@ final class ArticleController extends AbstractController
         ]);
     }
 
+    
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
@@ -61,12 +62,7 @@ final class ArticleController extends AbstractController
                     // Créer une entité Image
                     $image = new Image();
                     $image->setName($newFilename);
-
-                    // Associer à l'article
-                    $image->setArticle($article);
-
-                    // Persister l'image
-                    $entityManager->persist($image);
+                    $article->addImage($image); // c'est cette méthode qui lie les deux et persist modif
                 }
 
             $entityManager->persist($article);
@@ -87,6 +83,7 @@ final class ArticleController extends AbstractController
         ]);
     }
 
+
     #[Route('/{slug}-{id}', name: 'app_article_show', methods: ['GET', 'POST'], requirements: ['slug' => Requirement::ASCII_SLUG,'id' => Requirement::DIGITS])]
     public function show(Article $article, EntityManagerInterface $em, Request $request, CommentRepository $commentRepository): Response
     {
@@ -103,7 +100,6 @@ final class ArticleController extends AbstractController
 
         // création nouveau commentaire
         $comment = new Comment();
-        $comment->setArticle($article);
         $comment->setAuthor($this->getUser());
         $comment->setCreatedAt(new \DateTimeImmutable());
 
@@ -112,9 +108,12 @@ final class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->denyAccessUnlessGranted('POST_NEW', null);
-            $em->persist($comment);
+            $article->addComment($comment);
+            $em->persist($article);
             $em->flush();
+
             $this->addFlash('success', 'Commentaire ajouté !');
+            
             return $this->redirectToRoute('app_article_show', [
                 'slug' => $article->getSlug(),
                 'id' => $article->getId(),
@@ -130,10 +129,8 @@ final class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'], requirements: [
-        'slug' => Requirement::ASCII_SLUG,
-        'id' => Requirement::DIGITS
-    ])]
+
+    #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('POST_EDIT', $article);
@@ -143,31 +140,32 @@ final class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
 
-                foreach ($images as $imageFile) {
-                    // Générer un nom unique
-                    $safeArticleSlug = $slugger->slug($article->getSlug()); 
-                    $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                if (!empty($images)) {
+                    foreach ($images as $imageFile) {
+                        // Générer un nom unique
+                        $safeArticleSlug = $slugger->slug($article->getSlug()); 
+                        $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
-                    try {
-                    // Déplacer les images dans le dossier des uploads: articles
-                    $imageFile->move(
-                        $this->getParameter('images_directory'),
-                        $newFilename
-                    );
-                    } catch (FileException $e) {
-                        $this->addFlash('danger', "Une erreur est survenue lors de l'upload de l'image");
+                        try {
+                        // Déplacer les images dans le dossier des uploads: articles
+                        $imageFile->move(
+                            $this->getParameter('images_directory'),
+                            $newFilename
+                        );
+                        } catch (FileException $e) {
+                            $this->addFlash('danger', "Une erreur est survenue lors de l'upload de l'image");
+                        }
+
+                        // Créer une entité Image
+                        $image = new Image();
+                        $image->setName($newFilename);
+                        $article->addImage($image); // c'est cette méthode qui lie les deux et persist modif
                     }
-
-                    // Créer une entité Image
-                    $image = new Image();
-                    $image->setName($newFilename);
-                    $image->setArticle($article);
-                    $entityManager->persist($image);
                 }
 
             $entityManager->flush();
             $this->addFlash('success', 'Article mis à jour avec succès !');
-            return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_profile_show', ['username' => $article->getAuthor()->getUsername()], Response::HTTP_SEE_OTHER);
         }
         return $this->render('article/edit.html.twig', [
             'article' => $article,
