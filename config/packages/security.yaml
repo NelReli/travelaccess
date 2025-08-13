@@ -38,8 +38,6 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/article/new, roles: ROLE_USER }
-        - { path: ^/comment/new, roles: ROLE_USER }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
 
 

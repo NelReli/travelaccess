@@ -33,7 +33,7 @@ final class ArticleController extends AbstractController
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $this->denyAccessUnlessGranted('POST_NEW', null);
+        $this->denyAccessUnlessGranted('POST_NEW');
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);

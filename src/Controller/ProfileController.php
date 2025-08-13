@@ -24,7 +24,7 @@ final class ProfileController extends AbstractController
         ]);
     }
     
-    #[Route('/profil/{username}', name: 'app_profile_show')]
+    #[Route('/profile/{username}', name: 'app_profile_show')]
     public function show(UserRepository $userRepository, ArticleRepository $articleRepository, string $username, CommentRepository $commentRepository): Response
     {
         $user = $userRepository->findOneBy(['username' => $username]);
@@ -47,7 +47,7 @@ final class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/{username}/modifier', name: 'app_profile_edit')]
+    #[Route('/profile/{username}/modifier', name: 'app_profile_edit')]
     public function edit(Request $request, UserRepository $userRepository, User $user, EntityManagerInterface $em, string $username): Response
     {
         // récupérer le user
