@@ -14,7 +14,7 @@ final class ArticleCommentVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // On peut décider que NEW ne nécessite pas forcément un sujet (null)
+        // pas de verification de subject a la creation (n existe pas encore)
         if ($attribute === self::NEW) {
             return true;
         }
@@ -44,6 +44,8 @@ final class ArticleCommentVoter extends Voter
                 // Tous les utilisateurs connectés peuvent créer un article ou commentaire
                 return true;
 
+            // Vérification et comparaison l’auteur de l’objet avec l’utilisateur connecté
+            // que c'est bien l utilisateur connecte, ou que c'est bien l auteur 
             case self::EDIT:
             case self::DELETE:
                 if ($subject instanceof User) {

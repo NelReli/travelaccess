@@ -10,7 +10,7 @@
                 </form>
             </div>
             {% if loop.last %}
-                <div class="container border-buttom border-2 border-dashed my-3" ></div>
+                <div class="container border-bottom border-2 border-dashed my-3" ></div>
             {% endif %}
         {% endfor %}
     </div>
@@ -61,9 +61,14 @@
                 {{ form_errors(form.description) }}
             </div>
         </div>
+        
+        {% if article.id %}
+            <button type="submit" class="btn btn-dark col-12">Mettre à jour l'article</button>
+        {% else %}
+            <button type="submit" class="btn btn-dark col-12">Publier l'article</button>
+        {% endif %}
 
-        <button type="submit" class="btn btn-dark col-12">Publier l'article</button>
     {{ form_end(form) }}
 
-    
+
 
