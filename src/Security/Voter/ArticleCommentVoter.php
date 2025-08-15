@@ -3,6 +3,8 @@
 namespace App\Security\Voter;
 
 use App\Entity\User;
+use App\Entity\Comment;
+use App\Entity\Article;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -15,13 +17,15 @@ final class ArticleCommentVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         // pas de verification de subject a la creation (n existe pas encore)
+        // subject fait reference a l'entité de l objet crée
         if ($attribute === self::NEW) {
             return true;
         }
 
+        // Pour l'édition et suppression, le subject doit être Article, Comment ou User
         return in_array($attribute, [self::EDIT, self::DELETE])
-            && ($subject instanceof \App\Entity\Article 
-                || $subject instanceof \App\Entity\Comment
+            && ($subject instanceof Article 
+                || $subject instanceof Comment
                 || $subject instanceof User
             );
     }
@@ -30,6 +34,7 @@ final class ArticleCommentVoter extends Voter
     {
         $user = $token->getUser();
 
+        // Le user doit être connecté
         if (!$user instanceof User) {
             return false;
         }
@@ -48,10 +53,12 @@ final class ArticleCommentVoter extends Voter
             // que c'est bien l utilisateur connecte, ou que c'est bien l auteur 
             case self::EDIT:
             case self::DELETE:
+                // Vérifier si le subject est un User
                 if ($subject instanceof User) {
                     return $subject === $user;
                 }
 
+                // Vérifier si le subject a un auteur
                 if (method_exists($subject, 'getAuthor')) {
                     return $subject->getAuthor() === $user;
                 }

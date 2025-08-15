@@ -10,13 +10,14 @@ use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Security\Voter\ArticleCommentVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Routing\Requirement\Requirement;
 
 #[Route('/article')]
 final class ArticleController extends AbstractController
@@ -33,7 +34,7 @@ final class ArticleController extends AbstractController
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $this->denyAccessUnlessGranted('POST_NEW');
+        $this->denyAccessUnlessGranted(ArticleCommentVoter::NEW);
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -107,7 +108,7 @@ final class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->denyAccessUnlessGranted('POST_NEW', null);
+            $this->denyAccessUnlessGranted(ArticleCommentVoter::NEW);
             $article->addComment($comment);
             $em->persist($article);
             $em->flush();
@@ -133,7 +134,7 @@ final class ArticleController extends AbstractController
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $this->denyAccessUnlessGranted('POST_EDIT', $article);
+        $this->denyAccessUnlessGranted(ArticleCommentVoter::EDIT, $article);
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -177,7 +178,7 @@ final class ArticleController extends AbstractController
     #[Route('/{id}', name: 'app_article_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('POST_DELETE', $article);
+        $this->denyAccessUnlessGranted(ArticleCommentVoter::DELETE, $article);
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();
