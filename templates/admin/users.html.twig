@@ -5,29 +5,31 @@
 {% block body %}
     <h2 class="mb-4">Liste des utilisateurs</h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr><th>Nom d'utilisateur</th><th>Email</th>
-            <th>Nombre d'articles partagés</th>
-            <th>Action</th></tr>
-        </thead>
-        <tbody>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Nom d'utilisateur</th><th>Email</th>
+                <th>Nombre d'articles partagés</th>
+                <th>Action</th></tr>
+            </thead>
+            <tbody>
 
-        {% for key in usersWithCounts %}
-            {% if 'ROLE_ADMIN' not in key.user.roles %}
-                <tr>
-                    <td>{{ key.user.username }}</td>
-                    <td>{{ key.user.email }}</td>
-                    <td>{{ key.articleCount }}</td>
-                    <td>
-                            <form method="post" action="{{ path('admin_delete_user', { 'id': key.user.id}) }}" onsubmit="return confirm('Confirmer la suppression de cet utilisateur ?');">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete-user' ~ key.user.id) }}">
-                                <button class="btn btn-danger btn-sm">Supprimer</button>
-                            </form>
-                    </td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-        </tbody>
-    </table>
+            {% for key in usersWithCounts %}
+                {% if 'ROLE_ADMIN' not in key.user.roles %}
+                    <tr>
+                        <td>{{ key.user.username }}</td>
+                        <td>{{ key.user.email }}</td>
+                        <td>{{ key.articleCount }}</td>
+                        <td>
+                                <form method="post" action="{{ path('admin_delete_user', { 'id': key.user.id}) }}" onsubmit="return confirm('Confirmer la suppression de cet utilisateur ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete-user' ~ key.user.id) }}">
+                                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
