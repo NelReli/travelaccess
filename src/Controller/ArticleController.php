@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/article')]
 final class ArticleController extends AbstractController
@@ -32,9 +33,9 @@ final class ArticleController extends AbstractController
 
     
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
+    #[IsGranted(ArticleCommentVoter::NEW)]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $this->denyAccessUnlessGranted(ArticleCommentVoter::NEW);
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -132,9 +133,9 @@ final class ArticleController extends AbstractController
 
 
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted(ArticleCommentVoter::EDIT, 'article')]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $this->denyAccessUnlessGranted(ArticleCommentVoter::EDIT, $article);
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -176,9 +177,9 @@ final class ArticleController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_article_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted(ArticleCommentVoter::DELETE, 'article')]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted(ArticleCommentVoter::DELETE, $article);
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();
@@ -187,7 +188,5 @@ final class ArticleController extends AbstractController
 
         return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
 
 }
