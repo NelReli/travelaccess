@@ -47,7 +47,7 @@
                 {% for user in lastUsers %}
                     <li class="list-group-item">
                         <strong>{{ user.username }}</strong><br>
-                        <small class="text-muted">Inscrit le {{ user.createdAt|date('d/m/Y') }}</small>
+                        <small class="text-muted">Inscrit le : {{ user.createdAt|date('d/m/Y') }}</small>
                     </li>
                 {% else %}
                     <li class="list-group-item text-muted">Aucun nouvel utilisateur.</li>
@@ -65,7 +65,7 @@
                             {{ article.title }}
                         </a>
                         <br>
-                        <small class="text-muted">{{ article.createdAt|date('d/m/Y H:i') }}</small>
+                        <small class="text-muted">Publié le : {{ article.createdAt|date('d/m/Y H:i') }}</small>
                     </li>
                 {% else %}
                     <li class="list-group-item text-muted">Aucun article récent.</li>
