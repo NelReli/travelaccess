@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col mb-3">
                         {{ form_label(registrationForm.bio, null, {'label_attr': {'class': 'w-100'}}) }}
-                        {{ form_widget(registrationForm.bio) }}
+                        {{ form_widget(registrationForm.bio, {'attr': { style:"height: 100px"}}) }}
                         {{ form_errors(registrationForm.bio) }}
                     </div>
                 </div>
