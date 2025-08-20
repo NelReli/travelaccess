@@ -3,17 +3,21 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Data\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * @extends ServiceEntityRepository<Article>
  */
 class ArticleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Article::class);
+        $this->paginator = $paginator;
     }
 
     public function countArticles(): int
@@ -40,6 +44,67 @@ class ArticleRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+    }
+
+    // pagination
+    public function paginateArticles(int $page): PaginationInterface  
+    { 
+        return $this->paginator->paginate( $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC'), 
+            $page, 
+            1
+        ); 
+    }
+
+    // pagination et filtre
+    public function findSearch(SearchData $search, int $page): PaginationInterface
+    {
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.comments', 'c')
+            ->addSelect('COUNT(c.id) as HIDDEN commentsCount');
+
+        // Recherche par titre
+        if (!empty($search->q)) {
+            $query->andWhere('a.title LIKE :q')
+                ->setParameter('q', '%'.$search->q.'%');
+        }
+
+        // Recherche par ville
+        if (!empty($search->city)) {
+            $query->andWhere('a.city LIKE :city')
+                ->setParameter('city', '%'.$search->city.'%');
+        }
+
+        // Recherche par pays
+        if (!empty($search->country)) {
+            $query->andWhere('a.country LIKE :country')
+                ->setParameter('country', '%'.$search->country.'%');
+        }
+
+        // Tri dynamique
+        switch ($search->order) {
+            case 'views':
+                $query->orderBy('a.views', 'DESC');
+                break;
+            case 'comments':
+                $query->orderBy('commentsCount', 'DESC');
+                break;
+            case 'accessibility':
+                $query->orderBy('a.accessibilityRating', 'DESC');
+                break;
+            default:
+                $query->orderBy('a.createdAt', 'DESC'); // par défaut
+        }
+
+        $query->groupBy('a.id');
+        $query = $query->getQuery();
+
+        // Pagination
+        return $this->paginator->paginate(
+            $query,        
+            $page,      // page actuelle
+            5           // Limite par page 
+        );
     }
 
 
