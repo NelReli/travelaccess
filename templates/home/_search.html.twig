@@ -1,0 +1,13 @@
+{{ form_start(form, {'method': 'get', 'attr': {'class': 'mb-3 search'}}) }}
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.q) }}</div>
+    <div class="col-md-4">{{ form_row(form.city) }}</div>
+    <div class="col-md-4">{{ form_row(form.country) }}</div>
+</div>
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.order) }}</div>
+    <div class="col-md-4">
+        <button class="btn btn-primary ">Fitrer</button>
+    </div>
+</div>
+{{ form_end(form) }}

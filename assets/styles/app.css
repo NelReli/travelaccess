@@ -8,6 +8,11 @@ h1,h2,h3,h4,h5,h6{
 
 p{
     color: #595959;
+    font-size: 14px;
+}
+
+input, a, li, input{
+    font-size: 14px;
 }
 
 .bg-hero{
@@ -131,6 +136,12 @@ p{
 .grid{
     display: grid;
     grid-template-columns: repeat(1, 1fr);
+}
+
+.search{
+    display: block;
+    position: sticky;
+    top: 2rem;
 }
 
 @media screen and (max-width: 600px){
