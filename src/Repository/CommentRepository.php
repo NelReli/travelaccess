@@ -20,6 +20,7 @@ class CommentRepository extends ServiceEntityRepository
     public function commentCountByArticleId(): array
     {
         $results = $this->createQueryBuilder('c')
+        //IDENTIFY pour récupérer la clé étrangère
         ->select('IDENTITY(c.article) AS article_id, COUNT(c.id) AS comment_count')
         ->groupBy('c.article')
         ->getQuery()

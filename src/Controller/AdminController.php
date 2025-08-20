@@ -27,8 +27,8 @@ class AdminController extends AbstractController
         $lastUsers = $userRepo->findLastUsers();
 
         return $this->render('admin/dashboard.html.twig', [
-            'userCount' => $userRepo->count([]),
-            'articleCount' => $articleRepo->count([]),
+            // 'userCount' => $userRepo->count([]),
+            // 'articleCount' => $articleRepo->count([]),
             'commentCount' => $commentRepo->count([]),
             'lastArticles' => $lastArticles,
             'lastComments' => $lastComments,
@@ -49,8 +49,6 @@ class AdminController extends AbstractController
 
     #[Route('/users/delete/{id}', name: 'admin_delete_user')]
     public function deleteUser($id, UserRepository $userRepo, EntityManagerInterface $em): Response {
-        
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $user = $userRepo->find($id);
         if ($user) {
@@ -73,8 +71,6 @@ class AdminController extends AbstractController
 
     #[Route('/articles/delete/{id}', name: 'admin_delete_article')]
     public function deleteArticle($id, ArticleRepository $articleRepo, EntityManagerInterface $em): Response {
-        
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $article = $articleRepo->find($id);
         if ($article) {
@@ -95,10 +91,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+
     #[Route('/comments/delete/{id}', name: 'admin_delete_comment')]
     public function deleteComment($id, CommentRepository $commentRepo, EntityManagerInterface $em): Response {
-        
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $comment = $commentRepo->find($id);
         if ($comment) {
