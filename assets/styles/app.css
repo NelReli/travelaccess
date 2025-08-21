@@ -7,7 +7,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 p{
-    /* color: #595959; */
+    color: #595959;
 }
 
 .bg-hero{
@@ -133,6 +133,31 @@ p{
     display: grid;
     grid-template-columns: repeat(1, 1fr);
 }
+
+/* pagination surcharge css bootstrap */
+.pagination {
+    justify-content: center;
+}
+
+.page-item .page-link {
+    background-color: transparent;  
+    color: #09487c;             
+    border: 1px solid #09487c;
+    /* border-radius: 8px; */
+    transition: all 0.3s;
+}
+
+.page-item .page-link:hover {
+    background-color: #09487c;   
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #09487c;
+    font-weight: bold;
+    color: #fff;
+}
+
 
 @media screen and (max-width: 600px){
     .gallery{

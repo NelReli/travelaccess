@@ -1,0 +1,47 @@
+{# Carrousel d'images #}
+                {% if article.images is not empty %}
+                    <div id="carouselArticleImages" class="carousel slide mb-4" data-bs-ride="carousel">
+                        {# Indicateurs #}
+                        {% if article.images|length > 1 %}
+                            <div class="carousel-indicators">
+                                {% for image in article.images %}
+                                    <button type="button" 
+                                            data-bs-target="#carouselArticleImages" 
+                                            data-bs-slide-to="{{ loop.index0 }}" 
+                                            {% if loop.first %}class="active" aria-current="true"{% endif %}
+                                            aria-label="Slide {{ loop.index }}">
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {# Images du carrousel #}
+                        <div class="carousel-inner rounded">
+                            {% for image in article.images %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img src="{{ asset('images/articles/' ~ image.getName) }}" class="d-block w-100" alt="{{ article.title }} - Image {{ loop.index }}" style="height: 400px; object-fit: cover;">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {# Boutons de navigation (seulement si plusieurs images) #}
+                        {% if article.images|length > 1 %}
+                            <button class="carousel-control-prev" 
+                                    type="button" 
+                                    data-bs-target="#carouselArticleImages" 
+                                    data-bs-slide="prev"
+                                    aria-label="Image précédente">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Précédent</span>
+                            </button>
+                            <button class="carousel-control-next" 
+                                    type="button" 
+                                    data-bs-target="#carouselArticleImages" 
+                                    data-bs-slide="next"
+                                    aria-label="Image suivante">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Suivant</span>
+                            </button>
+                        {% endif %}
+                    </div>
+                {% endif %}
