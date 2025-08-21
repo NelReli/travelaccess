@@ -61,4 +61,60 @@
         </div>
     </div>
 </div>
+
+    <div class="py-4 py-md-5 text-dark">
+        <!-- Intro -->
+        <div class="container mb-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <p class="fs-6 fs-md-5 text-center px-2">
+                        TravelAccess est né d'une conviction simple : le voyage est un droit fondamental, pas un privilège.
+                        Notre plateforme rassemble des voyageurs qui partagent leurs découvertes de lieux accessibles et leurs astuces pour surmonter les obstacles.
+                        Chaque témoignage enrichit notre base de données collective et inspire de nouvelles aventures pour tous.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vision -->
+        <div class="container mb-5">
+            <div class="card shadow border-0 rounded-5 overflow-hidden">
+                <div class="row g-0 align-items-center">
+                    <!-- Image -->
+                    <div class="col-12 col-md-5 order-1 order-md-0">
+                        <img src="{{ asset('images/pexels-kampus.jpg') }}" 
+                             class="img-fluid w-100 h-100 object-fit-cover" 
+                             alt="photo sur le pont">
+                    </div>
+                    <!-- Texte -->
+                    <div class="col-12 col-md-7 p-4 p-md-5">
+                        <h2 class="card-title mb-3">Notre vision</h2>
+                        <p class="fs-6 fs-md-5">
+                            Nous imaginons un monde où l'accessibilité n'est plus un obstacle au voyage, mais une considération naturelle intégrée dans chaque destination.
+                        </p>
+                        <p class="fs-6 fs-md-5">
+                            Grâce aux expériences partagées par notre communauté, nous construisons la plus grande base de données d'informations d'accessibilité au monde, créée par des voyageurs, pour des voyageurs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rejoindre -->
+        <div class="container text-center py-4">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <h3 class="mb-3">Rejoignez l'Aventure</h3>
+                    <p class="fs-6 fs-md-5">
+                        Chaque nouvelle voix enrichit notre communauté. Que vous souhaitiez partager vos expériences ou trouver l'inspiration pour votre prochain voyage, TravelAccess vous accueille.  
+                        <strong>Ensemble, construisons un monde plus accessible.</strong>
+                    </p>
+                    <a class="btn btn-dark btn-lg mt-3 px-4" href="{{ path('app_register') }}">
+                        Rejoindre la communauté
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

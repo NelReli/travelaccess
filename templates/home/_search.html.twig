@@ -1,13 +1,23 @@
-{{ form_start(form, {'method': 'get', 'attr': {'class': 'mb-3 search'}}) }}
+{{ form_start(form, {'method': 'get'}) }}
 <div class="row">
-    <div class="col-md-4">{{ form_row(form.q) }}</div>
-    <div class="col-md-4">{{ form_row(form.city) }}</div>
-    <div class="col-md-4">{{ form_row(form.country) }}</div>
-</div>
-<div class="row">
-    <div class="col-md-4">{{ form_row(form.order) }}</div>
-    <div class="col-md-4">
-        <button class="btn btn-primary ">Fitrer</button>
+    <div class="col-lg-4 mb-2">
+        {{ form_label(form.q) }}
+        {{ form_widget(form.q, {'attr': {'class': 'form-control w-100 text-muted'}}) }}
+    </div>
+    <div class="col-lg-2 col-sm-3 mb-2">
+        {{ form_label(form.city) }}
+        {{ form_widget(form.city, {'attr': {'class': 'form-control w-100 text-muted'}}) }}
+    </div>
+    <div class="col-lg-2 col-sm-3 mb-2">
+        {{ form_label(form.country) }}
+        {{ form_widget(form.country, {'attr': {'class': 'form-control w-100 text-muted'}}) }}
+    </div>
+    <div class="col-lg-2 col-sm-3 mb-2">
+        {{ form_label(form.order) }}
+        {{ form_widget(form.order, {'attr': {'class': 'form-control w-100 text-muted'}}) }}
+    </div>
+    <div class="col-lg-2 col-sm-3">
+        <button class="btn btn-dark w-100">Rechercher</button>
     </div>
 </div>
 {{ form_end(form) }}
