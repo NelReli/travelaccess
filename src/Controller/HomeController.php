@@ -30,7 +30,12 @@ final class HomeController extends AbstractController
     public function index(ArticleRepository $articleRepository, CommentRepository $commentRepository, Request $request): Response
     {
         $search = new SearchData(); // nouvel objet pour la recherche
-        $form = $this->createForm(SearchForm::class, $search);
+        $cities = $articleRepository->findAllCities();
+        $countries = $articleRepository->findAllCountries();
+        $form = $this->createForm(SearchForm::class, $search, [
+            'cities' => $cities,
+            'countries' => $countries,
+        ]);
         $form->handleRequest($request);
 
         // Récupération de la page active

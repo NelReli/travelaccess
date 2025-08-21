@@ -20,6 +20,8 @@ class ArticleRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+
+    // calcul des articles
     public function countArticles(): int
     {
         return $this->createQueryBuilder('a')
@@ -29,6 +31,7 @@ class ArticleRepository extends ServiceEntityRepository
     }
     
 
+    // calcul des villes sans doublon
     public function countDistinctCities(): int
     {
         return (int) $this->createQueryBuilder('a')
@@ -37,6 +40,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    // recherche des 5 derniers articles
     public function findLastArticles(int $limit = 5): array
     {
         return $this->createQueryBuilder('a')
@@ -45,6 +49,35 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+    // select de toutes les villes
+    public function findAllCities(): array
+    {
+        return array_column(
+            $this->createQueryBuilder('a')
+                ->select('DISTINCT a.city')
+                ->orderBy('a.city', 'ASC')
+                ->getQuery()
+                ->getArrayResult(),
+            'city'
+        );
+    }
+
+
+    // select de tous les pays
+    public function findAllCountries(): array
+    {
+        return array_column(
+            $this->createQueryBuilder('a')
+                ->select('DISTINCT a.country')
+                ->orderBy('a.country', 'ASC')
+                ->getQuery()
+                ->getArrayResult(),
+            'country'
+        );
+    }
+
 
     // pagination
     public function paginateArticles(int $page): PaginationInterface  
@@ -55,6 +88,7 @@ class ArticleRepository extends ServiceEntityRepository
             1
         ); 
     }
+
 
     // pagination et filtre
     public function findSearch(SearchData $search, int $page): PaginationInterface
@@ -71,14 +105,14 @@ class ArticleRepository extends ServiceEntityRepository
 
         // Recherche par ville
         if (!empty($search->city)) {
-            $query->andWhere('a.city LIKE :city')
-                ->setParameter('city', '%'.$search->city.'%');
+            $query->andWhere('a.city = :city')
+                ->setParameter('city', $search->city);
         }
 
         // Recherche par pays
         if (!empty($search->country)) {
-            $query->andWhere('a.country LIKE :country')
-                ->setParameter('country', '%'.$search->country.'%');
+            $query->andWhere('a.country = :country')
+                ->setParameter('country', $search->country);
         }
 
         // Tri dynamique
@@ -90,7 +124,7 @@ class ArticleRepository extends ServiceEntityRepository
                 $query->orderBy('commentsCount', 'DESC');
                 break;
             case 'accessibility':
-                $query->orderBy('a.accessibilityRating', 'DESC');
+                $query->orderBy('a.rating', 'DESC');
                 break;
             default:
                 $query->orderBy('a.createdAt', 'DESC'); // par défaut
@@ -103,7 +137,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,        
             $page,      // page actuelle
-            5           // Limite par page 
+            1           // Limite par page 
         );
     }
 

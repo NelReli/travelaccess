@@ -21,19 +21,23 @@ class SearchForm extends AbstractType
                     'placeholder' => 'Rechercher des destinations'
                 ]
             ])
-            ->add('city', TextType::class, [
+            ->add('city', ChoiceType::class, [
+                'choices' => $options['cities'],   // injecté depuis le contrôleur
+                'choice_label' => fn($city) => $city,
                 'label' => false,
+                'placeholder' => 'Toutes les villes', 
                 'required' => false,
-                'attr' =>[
-                    'placeholder' => 'Ville'
-                ]
+                'multiple' => false,
+                'expanded' => false, // false = <select>
             ])
-            ->add('country', TextType::class, [
+            ->add('country', ChoiceType::class, [
+                'choices' => $options['countries'],   // injecté depuis le contrôleur
+                'choice_label' => fn($country) => $country,
                 'label' => false,
+                'placeholder' => 'Tous les pays', 
                 'required' => false,
-                'attr' =>[
-                    'placeholder' => 'Pays'
-                ],
+                'multiple' => false,
+                'expanded' => false, // false = <select>
             ])
             ->add('order', ChoiceType::class, [
                 'label' => false,
@@ -53,6 +57,8 @@ class SearchForm extends AbstractType
             'data_class' => SearchData::class,
             'method' => 'GET',
             'csrf_protection' => false,
+            'cities' => [],
+            'countries' => [],
         ]);
     }
 

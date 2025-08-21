@@ -19,7 +19,7 @@
                 {# Partie Descriptif d'Article #}
                 <div class="col-md-7 align-self-end ">
                     <div class="d-flex align-items-baseline">
-                        <p class="mb-0 me-3" >Accessibilité :</p>
+                        <p class="mb-0 me-3 mt-3" >Accessibilité :</p>
                         <div>
                             {% for i in 1..5 %}
                                 {% if i <= article.rating %}
@@ -30,12 +30,12 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="my-2 small">
+                    <div class="small">
                         <span>{{ article.city|title }}, {{ article.country|upper }}</span>
                         <span>|</span>
                         <span>{{ article.createdAt|date('d.m.Y') }}</span>
                     </div>
-                    <h2 class="mb-2 fs-3"><a class="text-decoration-none title_article" href="{{ path('app_article_show', {'slug': article.slug, 'id': article.id}) }}">{{ article.title|upper }}</a></h2>
+                    <h2 class="my-2 fs-3"><a class="text-decoration-none title_article" href="{{ path('app_article_show', {'slug': article.slug, 'id': article.id}) }}">{{ article.title|upper }}</a></h2>
                     <p class=" mb-2">{{ article.description|nl2br |slice(0, 300) ~ '...' }}</p>
                     <div class="d-flex justify-content-between align-items-end">
                         <div>
