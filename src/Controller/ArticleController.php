@@ -45,7 +45,7 @@ final class ArticleController extends AbstractController
             $article->setCreatedAt(new \DateTimeImmutable());
 
             // Gestion des images
-                $images = $form->get('images')->getData(); // Champ "images" dans le form
+                $images = $form->get('images')->getData(); // Champ "images" dans le formulaire
 
                 foreach ($images as $imageFile) {
                     // Générer un nom unique

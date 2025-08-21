@@ -85,7 +85,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->paginator->paginate( $this->createQueryBuilder('a')
             ->orderBy('a.createdAt', 'DESC'), 
             $page, 
-            1
+            5
         ); 
     }
 
@@ -137,7 +137,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,        
             $page,      // page actuelle
-            1           // Limite par page 
+            5           // Limite par page 
         );
     }
 
