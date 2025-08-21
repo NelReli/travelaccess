@@ -22,16 +22,16 @@
         <div class="collapse navbar-collapse" id="adminNavbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a href="{{ path('admin_dashboard') }}" class="nav-link {{ app.current_route starts with 'admin_dashboard' ? 'bg-hero' : '' }}"> <i class="bi bi-speedometer2"></i> Dashboard</a>
+                    <a href="{{ path('admin_dashboard') }}" class="nav-link p-2 {{ app.current_route starts with 'admin_dashboard' ? 'bg-hero' : '' }}"> <i class="bi bi-speedometer2"></i> Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('admin_users') }}" class="nav-link {{ app.current_route starts with 'admin_users' ? 'bg-hero' : '' }}"> <i class="bi bi-people"></i> Utilisateurs</a>
+                    <a href="{{ path('admin_users') }}" class="nav-link p-2 {{ app.current_route starts with 'admin_users' ? 'bg-hero' : '' }}"> <i class="bi bi-people"></i> Utilisateurs</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('admin_articles') }}" class="nav-link {{ app.current_route starts with 'admin_articles' ? 'bg-hero' : '' }}"> <i class="bi bi-file-text"></i> Articles</a>
+                    <a href="{{ path('admin_articles') }}" class="nav-link p-2 {{ app.current_route starts with 'admin_articles' ? 'bg-hero' : '' }}"> <i class="bi bi-file-text"></i> Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('admin_comments') }}" class="nav-link {{ app.current_route starts with 'admin_comments' ? 'bg-hero' : '' }}"> <i class="bi bi-chat-dots"></i> Commentaires</a>
+                    <a href="{{ path('admin_comments') }}" class="nav-link p-2 {{ app.current_route starts with 'admin_comments' ? 'bg-hero' : '' }}"> <i class="bi bi-chat-dots"></i> Commentaires</a>
                 </li>
             </ul>
 
