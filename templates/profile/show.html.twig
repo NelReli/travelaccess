@@ -72,7 +72,22 @@
                         {% for article in articles %}
                             <div class="card mb-4 rounded-4 overflow-hidden shadow-sm border-0 p-3">
                                 <div class="card-body p-4">
+                                    {# accessibilite #}
+                                    <div class="d-flex align-items-baseline">
+                                        <p class="me-3" >Accessibilité :</p>
+                                        <div>
+                                            {% for i in 1..5 %}
+                                                {% if i <= article.rating %}
+                                                    <span class="fs-5 text-warning" >&#9733;</span> 
+                                                {% else %}
+                                                    <span class="fs-5 text-light">&#9733;</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
                                     <div class="d-flex justify-content-between align-items-start mb-3">
+                                        
                                         <h2 class="fs-3 text-dark mb-0">
                                             <a href="{{ path('app_article_show', {'slug': article.slug, id: article.id}) }}" class="text-decoration-none text-dark">
                                                 {{ article.title|title }}

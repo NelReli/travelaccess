@@ -115,13 +115,6 @@ p{
     width: 10%;
 }
 
-.carousel-indicators button {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin: 0 3px;
-}
-
 .btn {
     transition: all 0.2s ease-in-out;
 }
