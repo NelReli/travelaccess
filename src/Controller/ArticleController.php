@@ -7,7 +7,7 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\ArticleType;
 use App\Form\CommentType;
-use App\Repository\ArticleRepository;
+// use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Security\Voter\ArticleCommentVoter;
@@ -23,14 +23,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/article')]
 final class ArticleController extends AbstractController
 {
-    #[Route(name: 'app_article_index', methods: ['GET'])]
-    public function index(ArticleRepository $articleRepository): Response
-    {
-        return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findAll(),
-        ]);
-    }
-
+    // #[Route(name: 'app_article_index', methods: ['GET'])]
+    // public function index(ArticleRepository $articleRepository): Response
+    // {
+    //     return $this->render('article/index.html.twig', [
+    //         'articles' => $articleRepository->findAll(),
+    //     ]);
+    // }
     
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     #[IsGranted(ArticleCommentVoter::NEW)]
@@ -46,10 +45,9 @@ final class ArticleController extends AbstractController
 
             // Gestion des images
                 $images = $form->get('images')->getData(); // Champ "images" dans le formulaire
-
+                $safeArticleSlug = $article->getSlug(); // on récupère le slug 
                 foreach ($images as $imageFile) {
                     // Générer un nom unique
-                    $safeArticleSlug = $slugger->slug($article->getSlug()); 
                     $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
                     try {
                     // Déplacer le fichier dans le dossier configuré
@@ -143,9 +141,9 @@ final class ArticleController extends AbstractController
             $images = $form->get('images')->getData();
 
                 if (!empty($images)) {
+                    $safeArticleSlug = $article->getSlug(); 
                     foreach ($images as $imageFile) {
                         // Générer un nom unique
-                        $safeArticleSlug = $slugger->slug($article->getSlug()); 
                         $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
                         try {

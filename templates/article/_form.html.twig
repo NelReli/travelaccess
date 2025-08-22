@@ -2,12 +2,15 @@
     <div class="row mt-4 justify-content-center">
         {% for image in article.images %}
             <div class="col-md-3 text-center mb-3 ">
-                <img src="{{ asset('images/articles/' ~ image.getName) }}" class="img-thumbnail profile-img" alt="Image galerie {{ loop.index }}" style="height: 200px; width: 200px;"/>
-
-                <form method="post" action="{{ path('app_image_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
-                    <button class="btn btn-sm btn-clear mt-2 rounded">X</button>
-                </form>
+            <div class="position-relative">
+            <img src="{{ asset('images/articles/' ~ image.getName) }}" class="img-thumbnail profile-img" alt="Image galerie {{ loop.index }}" style="height: 200px; width: 200px;"/>
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+            <form method="post" action="{{ path('app_image_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+        <button class="btn btn-sm btn-clear rounded"><i class="fas fa-trash "></i></button>
+    </form>
+</div>
+</div>
             </div>
             {% if loop.last %}
                 <div class="container border-bottom border-2 border-dashed my-3" ></div>

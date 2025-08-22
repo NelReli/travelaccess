@@ -133,7 +133,6 @@ class ArticleRepository extends ServiceEntityRepository
         $query->groupBy('a.id');
         $query = $query->getQuery();
 
-        // Pagination
         return $this->paginator->paginate(
             $query,        
             $page,      // page actuelle
