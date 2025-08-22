@@ -3,7 +3,7 @@
                     <div class="gallery">
                         {% for image in article.images|slice(0, 6) %}
                             <div class="position-relative">
-                                <img class="gallery-img" src="{{ asset('images/articles/' ~ image.getName) }}" alt="Image galerie {{ loop.index }}" />
+                                <img class="gallery-img" src="{{ asset('images/articles/' ~ image.getName) }}" alt="Image galerie {{ image.getName }}" />
                                     {% if loop.index == 6 and article.images|length > 6 %}
                                         <div class="position-absolute gallery-img top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
                                             <div class="text-white fw-bold fs-4">
