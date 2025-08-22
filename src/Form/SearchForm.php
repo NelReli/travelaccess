@@ -62,7 +62,7 @@ class SearchForm extends AbstractType
         ]);
     }
 
-    //pour que l'url soit propore
+    //pour que l'url soit propre
     public function getBlockPrefix()
     {
         return '';
