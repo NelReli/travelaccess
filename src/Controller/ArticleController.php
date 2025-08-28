@@ -179,8 +179,20 @@ final class ArticleController extends AbstractController
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+
+            // Récupère toutes les images de l’article
+            foreach ($article->getImages() as $image) {
+                $imagePath = $this->getParameter('images_directory') . '/' . $image->getName();
+
+                // Supprime le fichier image du système de fichiers
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+
             $entityManager->remove($article);
             $entityManager->flush();
+
             $this->addFlash('success', 'Article supprimé avec succès !');
         }
 

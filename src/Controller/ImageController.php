@@ -24,12 +24,12 @@ final class ImageController extends AbstractController
             if (file_exists($imagePath)) {
                 //suppression du fichier physique
                 try {
-                    unlink($imagePath);
+                    unlink($imagePath); //suppression de l'image
                 } catch (\Exception $e) {
                     $this->addFlash('warning', "Impossible de supprimer le fichier physique : ".$e->getMessage());
                 }
             }
-
+            //suppresion l'entrée de la base
             $em->remove($image);
             $em->flush();
 
