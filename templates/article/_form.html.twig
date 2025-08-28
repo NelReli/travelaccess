@@ -1,23 +1,27 @@
     {# Affichage et suppression des images EN DEHORS du formulaire principal #}
-    <div class="row mt-4 justify-content-center">
-        {% for image in article.images %}
-            <div class="col-md-3 text-center mb-3 ">
-                <div class="position-relative">
-                    <img src="{{ asset('images/articles/' ~ image.getName) }}" class="img-thumbnail profile-img" alt="Image galerie {{ loop.index }}" style="height: 200px; width: 200px;"/>
-                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <form method="post" action="{{ path('app_image_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
-                            <button type="submit" class="btn btn-sm btn-clear rounded"><i class="fas fa-trash "></i></button>
-                        </form>
+
+    {# Vérification que c est bien la route edit pour afficher les images #}
+    {% if app.request.attributes.get('_route') == 'app_article_edit' %}
+        <div class="row mt-4 justify-content-center">
+            {% for image in article.images %}
+                <div class="col-md-3 text-center mb-3 ">
+                    <div class="position-relative d-inline-block">
+                        <img src="{{ asset('images/articles/' ~ image.getName) }}" class="img-thumbnail profile-img" alt="Image galerie {{ loop.index }}" style="height: 200px; width: 200px;"/>
+                        <div class="position-absolute bottom-0 end-0 m-2 ">
+                            <form method="post" action="{{ path('app_image_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                                <button type="submit" class="btn btn-sm btn-danger rounded-circle shadow"><i class="fas fa-trash small "></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% if loop.last %}
-                <div class="container border-bottom border-2 border-dashed my-3" ></div>
-            {% endif %}
-        {% endfor %}
-    </div>
+                {% if loop.last %}
+                    <div class="container border-bottom border-2 border-dashed my-3" ></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {# Partie formulaire commune #}
     {{ form_start(form) }}
