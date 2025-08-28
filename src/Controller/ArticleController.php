@@ -132,7 +132,7 @@ final class ArticleController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     #[IsGranted(ArticleCommentVoter::EDIT, 'article')]
-    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -174,7 +174,7 @@ final class ArticleController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_article_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[Route('/{id}', name: 'app_article_delete', methods: ['DELETE'], requirements: ['id' => Requirement::DIGITS])]
     #[IsGranted(ArticleCommentVoter::DELETE, 'article')]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
@@ -184,7 +184,7 @@ final class ArticleController extends AbstractController
             $this->addFlash('success', 'Article supprimé avec succès !');
         }
 
-        return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 
 }

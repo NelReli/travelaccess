@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ImageController extends AbstractController
 {
 
-    #[Route('/{id}/delete', name: 'app_image_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_image_delete', methods: ['DELETE'])]
     public function deleteImage(Request $request, Image $image, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted('POST_EDIT', $image->getArticle());
