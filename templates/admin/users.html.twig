@@ -21,10 +21,13 @@
                         <td>{{ key.user.email }}</td>
                         <td>{{ key.articleCount }}</td>
                         <td>
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-primary btn-sm" href="{{ path('app_profile_show', { username: key.user.username } )}}"><i class="bi bi-eye"></i></a>    
                                 <form method="post" action="{{ path('admin_delete_user', { 'id': key.user.id}) }}" onsubmit="return confirm('Confirmer la suppression de cet utilisateur ?');">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete-user' ~ key.user.id) }}">
-                                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button>
                                 </form>
+                            </div>
                         </td>
                     </tr>
                 {% endif %}
