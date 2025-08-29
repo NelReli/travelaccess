@@ -51,7 +51,7 @@ class SearchForm extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => SearchData::class,
@@ -63,7 +63,7 @@ class SearchForm extends AbstractType
     }
 
     //pour que l'url soit propre
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return '';
     }
