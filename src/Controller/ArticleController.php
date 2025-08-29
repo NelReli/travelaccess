@@ -45,10 +45,10 @@ final class ArticleController extends AbstractController
 
             // Gestion des images
                 $images = $form->get('images')->getData(); // Champ "images" dans le formulaire
-                $safeArticleSlug = $article->getSlug(); // on récupère le slug 
+                $imageArticleSlug = $article->getSlug(); // on récupère le slug 
                 foreach ($images as $imageFile) {
                     // Générer un nom unique
-                    $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                    $newFilename = $imageArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
                     try {
                     // Déplacer le fichier dans le dossier configuré
                     $imageFile->move(
@@ -141,10 +141,10 @@ final class ArticleController extends AbstractController
             $images = $form->get('images')->getData();
 
                 if (!empty($images)) {
-                    $safeArticleSlug = $article->getSlug(); 
+                    $imageArticleSlug = $article->getSlug(); 
                     foreach ($images as $imageFile) {
                         // Générer un nom unique
-                        $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                        $newFilename = $imageArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
                         try {
                         // Déplacer les images dans le dossier des uploads: articles
