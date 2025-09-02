@@ -34,6 +34,28 @@
                 {% endif %}
             {% else %}
                 <p>Aucun article trouvé.</p>
+
+                <h4 class="mt-5">Derniers articles</h4>
+                <div class="row row-cols-1 row-cols-md-3 g-4 mx-auto">
+                    {% for article in lastArticles|slice(0, 3) %}
+                        {% include 'home/_cardSearch.html.twig' with { article: article } %}
+                    {% endfor %}
+                </div>
+
+                <h4 class="mt-5">Articles plus vus</h4>
+                <div class="row row-cols-1 row-cols-md-3 g-4 mx-auto">
+                    {% for article in mostViewArticles|slice(0, 3) %}
+                        {% include 'home/_cardSearch.html.twig' with { article: article } %}
+                    {% endfor %}
+                </div>
+
+                <h4 class="mt-5">Articles plus commentés</h4>
+                <div class="row row-cols-1 row-cols-md-3 g-4 mx-auto">
+                    {% for article in mostCommentArticles|slice(0, 3) %}
+                        {% include 'home/_cardSearch.html.twig' with { article: article } %}
+                    {% endfor %}
+                </div>
+
             {% endfor %}
         </div>
 
@@ -42,5 +64,6 @@
             {{ knp_pagination_render(articles) }}
         </div>
     </div>
+
 
 {% endblock %}

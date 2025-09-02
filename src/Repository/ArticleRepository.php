@@ -24,7 +24,7 @@ class ArticleRepository extends ServiceEntityRepository
     // calcul des articles
     public function countArticles(): int
     {
-        return $this->createQueryBuilder('a')
+        return (int) $this->createQueryBuilder('a')
             ->select('COUNT(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
@@ -49,6 +49,31 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    // recherche des 3 articles les plus vues
+    public function findMostViewArticles(int $limit = 3): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.views', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    
+    // recherche des 3 articles les plus commentés
+    public function findMostCommentArticles(int $limit = 3): array
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.comments', 'c')
+            ->addSelect('COUNT(c.id) as HIDDEN commentsCount')
+            ->groupBy('a.id')
+            ->orderBy('commentsCount', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 
     // select de toutes les villes
