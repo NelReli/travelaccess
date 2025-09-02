@@ -29,6 +29,9 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ArticleRepository $articleRepository, CommentRepository $commentRepository, Request $request): Response
     {
+        $lastArticles = $articleRepository->findLastArticles();
+        $mostViewArticles = $articleRepository->findMostViewArticles();
+        $mostCommentArticles = $articleRepository->findMostCommentArticles();
         $search = new SearchData(); // nouvel objet pour la recherche
         $cities = $articleRepository->findAllCities();
         $countries = $articleRepository->findAllCountries();
@@ -53,7 +56,10 @@ final class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'articles' => $articles,
             'commentCounts' => $commentCounts,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'lastArticles' => $lastArticles,
+            'mostViewArticles' =>  $mostViewArticles,
+            'mostCommentArticles' => $mostCommentArticles
         ]);
     }
 
