@@ -43,8 +43,10 @@
                             <span class="align-bottom"><small> Publié par <strong><a class="text-reset text-decoration-none" href="{{ path('app_profile_show', {'username':  article.author.username}) }}">{{ article.author.username|title }}</a></strong></small></span>
                         </div>
                         <div class="d-flex gap-3">
-                            <span class="badge text-dark"><i class="fa-regular fa-eye me-1"></i> {{ article.views }}</span>
-                            <span class="badge text-dark"><i class="fa-regular fa-comment me-1"></i> {{ commentCounts[article.id]|default(0) }}</span>
+                            <div class="d-flex gap-3">
+                                <span class="badge text-dark" aria-label="{{ article.views }} vues"><i class="fa-regular fa-eye me-1" aria-hidden="true"></i> {{ article.views }}</span>
+                                <span class="badge text-dark" aria-label="{{ commentCounts[article.id]|default(0) }} commentaires"><i class="fa-regular fa-comment me-1" aria-hidden="true"></i> {{ commentCounts[article.id]|default(0) }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
