@@ -24,14 +24,14 @@
 
                 {# Informations de l'article #}
                 <div>
-                    <div class="d-flex align-items-baseline">
+                    <div class="d-flex align-items-baseline" aria-label="Note d'accessibilité : {{ article.rating }} sur 5">
                         <p class="mb-0 me-3" >Note d'accessibilité :</p>
                         <div>
                             {% for i in 1..5 %}
                                 {% if i <= article.rating %}
-                                    <span class="fs-5 text-warning" >&#9733;</span> 
+                                    <span class="fs-5 text-warning" aria-hidden="true">&#9733;</span> 
                                 {% else %}
-                                    <span class="fs-5 text-body-tertiary">&#9733;</span>
+                                    <span class="fs-5 text-body-tertiary" aria-hidden="true">&#9733;</span>
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -62,7 +62,7 @@
                 {# Boutons d'administration (seul celui qui a publié l article) #}
                 <div class="d-flex justify-content-end my-3">
                     {% if is_granted('POST_EDIT', article) %}
-                        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn"><small><i class="fas fa-edit"></i> Modifier l'article</small></a>
+                        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn"><small><i class="fas fa-edit" aria-hidden="true"></i> Modifier l'article</small></a>
                     {% endif %}
 
                     {% if is_granted('POST_DELETE', article) %}
@@ -74,9 +74,9 @@
             {# Boutons d'action #}
             <div class="mt-4 d-flex gap-2 flex-wrap justify-content-center">
                 {% if is_granted('POST_EDIT', article) %}
-                    <a href="{{ path('app_profile_show', {'username': app.user.username}) }}" class="btn btn-clear-transparent"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+                    <a href="{{ path('app_profile_show', {'username': app.user.username}) }}" class="btn btn-clear-transparent" aria-label="Retourner à la liste des articles de {{ app.user.username }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> Retour à la liste</a>
                 {% endif %}
-                <a href="{{ path('app_home') }}" class="btn btn-clear-transparent"><i class="fas fa-home"></i> Retour à l'accueil</a>                   
+                <a href="{{ path('app_home') }}" class="btn btn-clear-transparent" aria-label="Retourner à la page d'accueil"><i class="fas fa-home" aria-hidden="true"></i> Retour à l'accueil</a>                   
             </div>
 
         </div>

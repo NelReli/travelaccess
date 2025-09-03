@@ -10,7 +10,7 @@
 
     <div class="container d-flex justify-content-center ">
         <div class="card  p-5 shadow rounded-4" style="max-width: 650px; width: 100%; ">
-            {{ form_start(registrationForm) }}
+            {{ form_start(registrationForm, {'attr': {'role': 'form', 'aria-label': 'Formulaire d\'inscription à TravelAccess'}}) }}
                 <div class="row">
                     <div class="col-lg-6 mb-3">
                         {{ form_label(registrationForm.firstname, null, {'label_attr': {'class': 'w-100'}}) }}
@@ -82,14 +82,14 @@
                 <p class="mb-4">Pourquoi rejoindre TravelAccess ?</p>
                 <div class="col-lg-6">
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Partagez vos expériences de voyage accessibles</li>
-                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Découvrez des destinations accessibles</li>
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear" aria-hidden="true"></i>Partagez vos expériences de voyage accessibles</li>
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear" aria-hidden="true"></i>Découvrez des destinations accessibles</li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Aidez d'autres voyageurs à mobilité réduite</li>
-                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear"></i>Rejoignez une communauté bienveillante</li>
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear" aria-hidden="true"></i>Aidez d'autres voyageurs à mobilité réduite</li>
+                        <li class="mb-2"><i class="fa-solid fa-check me-2 text-clear" aria-hidden="true"></i>Rejoignez une communauté bienveillante</li>
                     </ul>
                 </div>
             </div>

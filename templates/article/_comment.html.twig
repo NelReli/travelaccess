@@ -10,7 +10,7 @@
                         {{ form_errors(comment_form.comment) }}
                     </div>
                 </div>
-                <button class="btn btn-sm btn-dark mb-5 px-3" aria-label="Envoyer votre commentaire"><small><i class="bi bi-send me-2" aria-hidden="true"></i>Envoyer</small></button>
+                <button class="btn btn-sm btn-dark mb-5 px-3"><small><i class="bi bi-send me-2" aria-hidden="true"></i>Envoyer</small></button>
             {{ form_end(comment_form) }}
         </div>
     {% else %}
@@ -21,14 +21,14 @@
     {% endif %}
 
     {% for comment in article.comments %}
-        <div class="comment row p-4">
+        <div class="comment row p-4" aria-label="Commentaire de {{ comment.author.username }}">
             <div class="col-2 d-none d-sm-block text-center"><img class="rounded-circle shadaw" src="{{ asset('images/avatars/' ~ comment.author.avatar) }}" alt=" avatar de l'utilisateur {{ article.author.username}}" height="70" width="70" /></div>
                 <div class="col-sm-10 col-12 bg-area rounded-4 mb-3 p-3">
                     <div class="d-flex justify-content-between ">
                         <p>{{ comment.author.username }}</p>
                         <p><small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small></p>
                     </div>
-                    <p>{{ comment.comment }}</p>
+                    <p aria-label="Contenu du commentaire">{{ comment.comment }}</p>
                 </div>    
             </div>    
     {% else %}
