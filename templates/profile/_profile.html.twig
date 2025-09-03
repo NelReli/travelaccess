@@ -1,0 +1,47 @@
+<div class="row my-5">
+
+            <div class="col-lg-3 col-md-4 mb-5">
+                <div class="sticky-top" style="top: 6.5rem; ; z-index: 10">
+                    <div class="card rounded-4 shadow-lg overflow-hidden">
+                        <div class="card-header bg-white  position-relative border-0" style="height: 6rem;">
+                            {% if user.avatar %}
+                                <img src="{{ asset('images/avatars/' ~ user.avatar) }}"
+                                    alt="Avatar de {{ user.username }}"
+                                    class="rounded-circle bg-white position-absolute top-100 start-50 translate-middle border border-5 border-white shadow"
+                                    style="height: 100px; width: 100px; object-fit: cover">
+                            {% endif %}
+                        </div>
+                        <div class="card-body mt-3 pt-5">
+                            <div class="d-flex justify-content-center align-items-center gap-2 mb-4">
+                                <h5 class="card-title mb-0">{{ user.username|title }}</h5>
+                                {% if is_granted('POST_EDIT', user) %}
+                                    <div>
+                                        <a href="{{ path('app_profile_edit', {'username': user.username}) }}" class="text-decoration-none text-muted"><i class="fas fa-edit"></i></a>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            {% if is_granted('POST_EDIT', user) %}
+                                <div class="mb-3">
+                                    <p class="card-text px-3 mb-1 text-muted small">Nom et prénom : {{ user.firstname }} {{ user.lastname }}</p>
+                                    <p class="card-text px-3 mb-0 text-muted small">Email : {{ user.email }}</p>
+                                </div>
+                                <hr class="mx-3"> 
+                            {% endif %}
+
+                            {% if user.bio %}
+                                <p class="card-text px-3">{{ user.bio|nl2br }}</p>
+                            {% else %}
+                                <p class="card-text px-3 text-muted fst-italic">Aucune biographie renseignée.</p>
+                            {% endif %}
+                            <p class="card-text text-muted p-3 small">Membre depuis : {{ user.createdAt|date('d/m/Y') }}</p>
+
+                            {% if is_granted('POST_EDIT', user) %}
+                                <div class="text-center pb-2">
+                                    <a href="{{ path('app_article_new') }}" class="btn btn-dark rounded-pill px-4">Nouvel article</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>

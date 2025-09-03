@@ -1,37 +1,37 @@
-<div class="card p-5 shadow rounded-4 mx-auto" style="max-width: 900px; width: 100%;">
-                <h5 class="mb-5"><i class="fa-regular fa-comment"></i> Commentaires : <span class="me-3"> {{ commentCounts[article.id]|default(0) }}</span></h5>
-                {% if  is_granted('IS_AUTHENTICATED_FULLY')  %}
-                    <div>
-                        {{ form_start(comment_form) }}
-                            <div class="row">
-                                <div class="col mb-3">
-                                    {{ form_label(comment_form.comment, null, {'label_attr': {'class': 'w-100'}}) }}
-                                    {{ form_widget(comment_form.comment) }}
-                                    {{ form_errors(comment_form.comment) }}
-                                </div>
-                            </div>
-                            <button class="btn btn-sm btn-dark mb-5 px-3"><small><i class="bi bi-send me-2"></i>Envoyer</small></button>
-                        {{ form_end(comment_form) }}
+<div class="card p-5 shadow rounded-4 mx-auto" style="max-width: 900px; width: 100%;" aria-label="Commentaires de l'article">
+    <h5 class="mb-5"><i class="fa-regular fa-comment" aria-hidden="true"></i> Commentaires : <span class="me-3" aria-label="{{ commentCounts[article.id]|default(0) }} commentaire(s)"> {{ commentCounts[article.id]|default(0) }}</span></h5>
+    {% if  is_granted('IS_AUTHENTICATED_FULLY')  %}
+        <div>
+            {{ form_start(comment_form, {'attr': {'role': 'form', 'aria-label': 'Formulaire de commentaire'}}) }}
+                <div class="row">
+                    <div class="col mb-3">
+                        {{ form_label(comment_form.comment, null, {'label_attr': {'class': 'w-100'}}) }}
+                        {{ form_widget(comment_form.comment) }}
+                        {{ form_errors(comment_form.comment) }}
                     </div>
-                {% else %}
-                    <div class="text-center p-4 bg-area mb-4 rounded-4">
-                        <p>Connectez-vous pour participer à la discussion</p>
-                        <a class="btn btn-dark" href="{{ path('app_login') }}">Se connecter</a>
-                    </div>
-                {% endif %}
+                </div>
+                <button class="btn btn-sm btn-dark mb-5 px-3" aria-label="Envoyer votre commentaire"><small><i class="bi bi-send me-2" aria-hidden="true"></i>Envoyer</small></button>
+            {{ form_end(comment_form) }}
+        </div>
+    {% else %}
+        <div class="text-center p-4 bg-area mb-4 rounded-4">
+            <p>Connectez-vous pour participer à la discussion</p>
+            <a class="btn btn-dark" href="{{ path('app_login') }}">Se connecter</a>
+        </div>
+    {% endif %}
 
-                {% for comment in article.comments %}
-                    <div class="comment row p-4">
-                        <div class="col-2 d-none d-sm-block text-center"><img class="rounded-circle shadaw" src="{{ asset('images/avatars/' ~ comment.author.avatar) }}" alt=" avatar de l'utilisateur {{ article.author.username}}" height="70" width="70" /></div>
-                            <div class="col-sm-10 col-12 bg-area rounded-4 mb-3 p-3">
-                                <div class="d-flex justify-content-between ">
-                                    <p>{{ comment.author.username }}</p>
-                                    <p><small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small></p>
-                                </div>
-                                <p>{{ comment.comment }}</p>
-                            </div>    
-                        </div>    
+    {% for comment in article.comments %}
+        <div class="comment row p-4">
+            <div class="col-2 d-none d-sm-block text-center"><img class="rounded-circle shadaw" src="{{ asset('images/avatars/' ~ comment.author.avatar) }}" alt=" avatar de l'utilisateur {{ article.author.username}}" height="70" width="70" /></div>
+                <div class="col-sm-10 col-12 bg-area rounded-4 mb-3 p-3">
+                    <div class="d-flex justify-content-between ">
+                        <p>{{ comment.author.username }}</p>
+                        <p><small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small></p>
                     </div>
-                {% else %}
-                    <p>Aucun commentaire pour le moment.</p>
-                {% endfor %}
+                    <p>{{ comment.comment }}</p>
+                </div>    
+            </div>    
+    {% else %}
+        <p>Aucun commentaire pour le moment.</p>
+    {% endfor %}
+</div>

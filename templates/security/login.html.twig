@@ -3,9 +3,9 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <form method="post">
+    <form method="post" aria-label="connexion à TravelAcess">
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-danger" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         <h1 class="text-center mt-5 mb-2">Connexion</h1>
@@ -13,7 +13,7 @@
         
         {% if app.user %}
             <div class="mb-3 text-center">
-                Vous êtes connectés en tant que : <strong>{{ app.user.userIdentifier }} </strong>, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                Vous êtes connectés en tant que : <strong>{{ app.user.userIdentifier }} </strong>, <a href="{{ path('app_logout') }}" aria-label="Se déconnecter">Se déconnecter</a>
             </div>
         {% endif %}
             <div class="container d-flex justify-content-center my-5 ">
@@ -33,16 +33,16 @@
                         See https://symfony.com/doc/current/security/remember_me.html #}
 
                     <div class="d-flex justify-content-between align-items-end">
-                    <div class="checkbox m-3">
-                        <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
-                        <label class="form-check-label " for="_remember_me">Se souvenir de moi</label>
-                    </div>
-                    <p  class="m-3"><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a></p>
+                        <div class="checkbox m-3">
+                            <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
+                            <label class="form-check-label " for="_remember_me">Se souvenir de moi</label>
+                        </div>
+                        <p  class="m-3"><a href="{{ path('app_forgot_password_request') }}" aria-label="Modification de mot de passe">Mot de passe oublié ?</a></p>
                     </div>
 
-                    <button class="btn btn-lg btn-dark m-3" type="submit">Se connecter</button>
+                    <button class="btn btn-lg btn-dark m-3" type="submit" aria-label="Se connecter">Se connecter</button>
                 </div>
             </div>
     </form>
-    <p class="text-center">Pas encore de compte ? <a href="{{ path('app_register') }}">Rejoignez la communauté</a></p>
+    <p class="text-center">Pas encore de compte ? <a href="{{ path('app_register') }}" aria-label="Créer un compte TravelAccess">Rejoignez la communauté</a></p>
 {% endblock %}
