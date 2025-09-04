@@ -14,18 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class HomeController extends AbstractController
 {
-    // #[Route('/', name: 'app_home')]
-    // public function index(ArticleRepository $articleRepository, CommentRepository $commentRepository): Response
-    // {
-    //     $articles = $articleRepository->findBy([], ['createdAt' => 'DESC']);
-    //     $commentCounts = $commentRepository->commentCountByArticleId();
-    //     return $this->render('home/index.html.twig', [
-    //         'controller_name' => 'HomeController',
-    //         'articles' => $articles,
-    //         'commentCounts' => $commentCounts
-    //     ]);
-    // }
-
     #[Route('/', name: 'app_home')]
     public function index(ArticleRepository $articleRepository, CommentRepository $commentRepository, Request $request): Response
     {
