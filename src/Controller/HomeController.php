@@ -29,6 +29,9 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ArticleRepository $articleRepository, CommentRepository $commentRepository, Request $request): Response
     {
+        $cookiesAccepted = $request->cookies->get('cookies_accepted') === 'true';
+        $cookiesRefused = $request->cookies->get('cookies_refused') === 'true';
+
         $lastArticles = $articleRepository->findLastArticles();
         $mostViewArticles = $articleRepository->findMostViewArticles();
         $mostCommentArticles = $articleRepository->findMostCommentArticles();
@@ -59,7 +62,9 @@ final class HomeController extends AbstractController
             'form' => $form->createView(),
             'lastArticles' => $lastArticles,
             'mostViewArticles' =>  $mostViewArticles,
-            'mostCommentArticles' => $mostCommentArticles
+            'mostCommentArticles' => $mostCommentArticles,
+            'cookiesAccepted' =>$cookiesAccepted,
+            'cookiesRefused' => $cookiesRefused
         ]);
     }
 

@@ -1,0 +1,22 @@
+{% if not cookiesAccepted and not cookiesRefused %}
+<div class="modal fade" id="cookieModal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-body">
+            <p>Nous utilisons des cookies pour améliorer votre expérience. En poursuivant votre navigation, vous acceptez leur utilisation.</p>
+            <div class="text-end">
+            <a href="{{ path('app_refuse_cookies') }}" class="btn btn-danger me-2">Refuser</a>
+            <a href="{{ path('app_accept_cookies') }}" class="btn btn-success">Accepter</a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cookieModal = new bootstrap.Modal(document.getElementById('cookieModal'));
+    cookieModal.show();
+});
+</script>
+{% endif %}
