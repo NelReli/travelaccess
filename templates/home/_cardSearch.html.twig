@@ -10,7 +10,7 @@
             <p class="card-text">{{ article.description|slice(0, 100) ~ '...' }}</p>
         </div>
         
-        <div class="card-footer">
+        <div class="card-footer bg-white border-0">
             <div class="d-flex gap-3">
                 <span class="badge text-dark" aria-label="{{ article.views }} vues"><i class="fa-regular fa-eye me-1" aria-hidden="true"></i> {{ article.views }}</span>
                 <span class="badge text-dark" aria-label="{{ commentCounts[article.id]|default(0) }} commentaires"><i class="fa-regular fa-comment me-1" aria-hidden="true"></i> {{ commentCounts[article.id]|default(0) }}</span>
@@ -19,3 +19,4 @@
     </div>
 
 </div>
+

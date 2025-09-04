@@ -4,6 +4,7 @@
 
 {% block body %}
 <div class="container " style="max-width: 1100px; width:100%;">
+    {# Fil d'ariane #}
     <nav class="mt-4" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -13,6 +14,7 @@
         </ol>
     </nav>
 
+    {# section01 #}
     <div class="py-4 py-md-5 " >
         <div class="container mb-5 text-center" >
             <div class="row justify-content-center">
@@ -26,16 +28,16 @@
             </div>
         </div>
 
-
+        {# section02 #}
         <div class="container mb-5" >
             <div class="card shadow border-0 rounded-5 overflow-hidden">
-                <div class="row g-0 align-items-center">
+                <div class="row g-0 ">
 
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <img src="{{ asset('images/pexels-kampus.jpg') }}" class="img-fluid w-100 h-100 object-fit-cover" alt="photo sur le pont">
                     </div>
 
-                    <div class="col-12 col-md-7 p-4 p-md-5">
+                    <div class="col-12 col-md-8 p-4 p-md-5">
                         <h2 class="card-title mb-3">Notre vision</h2>
                         <p class="fs-5">
                             Nous imaginons un monde où l'accessibilité n'est plus un obstacle au voyage, mais une considération naturelle intégrée dans chaque destination.
@@ -48,7 +50,7 @@
             </div>
         </div>
 
-
+        {# section03 #}
         <div class="container text-center py-4">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10">
@@ -62,6 +64,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 {% endblock %}
