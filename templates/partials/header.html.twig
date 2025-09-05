@@ -1,13 +1,18 @@
+{# barre de navigation #}
 <nav class="navbar navbar-expand-lg bg-body shadow-sm sticky-top z-index">
     <div class="container">
+    {# partie gauche #}
+        {# Logo #}
         <a class="navbar-brand" href="{{ path('app_home') }}">
             <img src="{{ asset('images/Logo_fond_clair.png') }}" alt="Logo du site" style="height: 50px;">
         </a>
+        {# burger #}
         <button class="navbar-toggler border-0 focus-ring focus-ring-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+    {# Partie centrale #}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -21,11 +26,14 @@
                 </li>
             </ul>
 
+    {# Partie droite #}
             <ul class="navbar-nav mb-2  mb-lg-0">
+            {# lien si utilisateur connecté #}
                 {% if  app.user %}
                     <li class="nav-item">
                         <a class="btn btn-dark" href="{{ path('app_article_new') }}">Partager</a>
                     </li>
+
                     <li class="nav-item d-flex">
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="nav-link {{ app.current_route starts with 'admin_dashboard' ? 'active' : '' }}" href="{{ path('admin_dashboard') }}">Administrateur</a>
@@ -38,6 +46,7 @@
                         <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                     </li>
                 {% else %}
+                {# lien si utilisateur non connecté #}
                     <li class="nav-item">
                         <a class="nav-link me-2" href="{{ path('app_login') }}">Connexion</a>
                     </li>
@@ -47,5 +56,6 @@
                 {% endif %}
             </ul>
         </div>
+
     </div>
 </nav>
