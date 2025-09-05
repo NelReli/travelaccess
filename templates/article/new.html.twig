@@ -20,11 +20,11 @@
             <div class="card p-4 shadow mb-4 rounded-4 bg-area" style="max-width: 750px; width: 100%; ">
                 <p><strong>Conseils pour un bon article</strong></p>
                 <ul class="list-unstyled">
-                    <li><i class="fa-solid fa-check mx-3 "></i>Intégrez naturellement les informations d'accessibilité dans votre récit</li>
-                    <li><i class="fa-solid fa-check mx-3 "></i>Mentionnez les équipements spécifiques (ascenseurs, toilettes adaptées, rampes...)</li>
-                    <li><i class="fa-solid fa-check mx-3 "></i>Partagez des conseils pratiques pour d'autres voyageurs</li>
-                    <li><i class="fa-solid fa-check mx-3 "></i>Soyez honnête sur les aspects positifs et les difficultés rencontrées</li>
-                    <li><i class="fa-solid fa-check mx-3 "></i>Ajoutez des photos pour illustrer l'accessibilité des lieux</li>
+                    <li><i class="fa-solid fa-check mx-3 " aria-hidden="true"></i>Intégrez naturellement les informations d'accessibilité dans votre récit</li>
+                    <li><i class="fa-solid fa-check mx-3 " aria-hidden="true"></i>Mentionnez les équipements spécifiques (ascenseurs, toilettes adaptées, rampes...)</li>
+                    <li><i class="fa-solid fa-check mx-3 " aria-hidden="true"></i>Partagez des conseils pratiques pour d'autres voyageurs</li>
+                    <li><i class="fa-solid fa-check mx-3 " aria-hidden="true"></i>Soyez honnête sur les aspects positifs et les difficultés rencontrées</li>
+                    <li><i class="fa-solid fa-check mx-3 " aria-hidden="true"></i>Ajoutez des photos pour illustrer l'accessibilité des lieux</li>
                 </ul>
             </div>
 
@@ -33,8 +33,8 @@
             </div>
 
             <div class="mt-4 d-flex gap-2 flex-wrap justify-content-center">
-                    <a href="{{ path('app_profile_show', {'username': app.user.username}) }}" class="btn btn-clear-transparent"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
-                    <a href="{{ path('app_home') }}" class="btn btn-clear-transparent"><i class="fas fa-home"></i> Retour à l'accueil</a>
+                    <a href="{{ path('app_profile_show', {'username': app.user.username}) }}" class="btn btn-clear-transparent" aria-label="Retour à ma liste d' articles"><i class="fas fa-arrow-left" aria-hidden="true"></i> Retour à la liste</a>
+                    <a href="{{ path('app_home') }}" class="btn btn-clear-transparent" aria-label="Retourner à la page d'accueil"><i class="fas fa-home" aria-hidden="true"></i> Retour à l'accueil</a>
             </div>
         </div>
     </div>

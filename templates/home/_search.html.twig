@@ -1,0 +1,23 @@
+{{ form_start(form, {'method': 'get', 'attr': {'role': 'search', 'aria-label': 'Recherche d\'articles'}}) }}
+    <div class="row">
+        <div class="col-lg-4 mb-2">
+            {{ form_label(form.q) }}
+            {{ form_widget(form.q, {'attr': {'class': 'form-control w-100 text-muted'}}) }}
+        </div>
+        <div class="col-lg-2 col-sm-3 mb-2">
+            {{ form_label(form.city) }}
+            {{ form_widget(form.city, {'attr': {'class': 'form-control text-capitalize w-100 text-muted'}}) }}
+        </div>
+        <div class="col-lg-2 col-sm-3 mb-2">
+            {{ form_label(form.country) }}
+            {{ form_widget(form.country, {'attr': {'class': 'form-control text-capitalize w-100 text-muted'}}) }}
+        </div>
+        <div class="col-lg-2 col-sm-3 mb-2">
+            {{ form_label(form.order) }}
+            {{ form_widget(form.order, {'attr': {'class': 'form-control w-100 text-muted'}}) }}
+        </div>
+        <div class="col-lg-2 col-sm-3 mb-2">
+            <button class="btn btn-dark w-100" aria-label="Lancer la recherche">Rechercher</button>
+        </div>
+    </div>
+{{ form_end(form) }}

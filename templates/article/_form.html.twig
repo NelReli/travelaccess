@@ -1,26 +1,34 @@
     {# Affichage et suppression des images EN DEHORS du formulaire principal #}
-    <div class="row mt-4 justify-content-center">
-        {% for image in article.images %}
-            <div class="col-md-3 text-center mb-3 ">
-                <img src="{{ asset('images/articles/' ~ image.getName) }}" class="img-thumbnail profile-img" alt="Image galerie {{ loop.index }}" style="height: 200px; width: 200px;"/>
 
-                <form method="post" action="{{ path('app_image_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
-                    <button class="btn btn-sm btn-clear mt-2 rounded">X</button>
-                </form>
-            </div>
-            {% if loop.last %}
-                <div class="container border-bottom border-2 border-dashed my-3" ></div>
-            {% endif %}
-        {% endfor %}
-    </div>
+    {# Vérification que c est bien la route edit pour afficher les images #}
+    {% if app.request.attributes.get('_route') == 'app_article_edit' %}
+        <div class="row mt-4 justify-content-center">
+            {% for image in article.images %}
+                <div class="col-md-3 text-center mb-3" aria-label="Galerie d'images de l'article">
+                    <div class="position-relative d-inline-block">
+                        <img src="{{ asset('images/articles/' ~ image.getName) }}" class="img-thumbnail profile-img" alt="Image galerie {{ loop.index }}" style="height: 200px; width: 200px;"/>
+                        <div class="position-absolute bottom-0 end-0 m-2 ">
+                            <form method="post" action="{{ path('app_image_delete', {'id': image.id}) }}" onsubmit="return confirm('Supprimer cette image ?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                                <button type="submit" class="btn btn-sm btn-danger rounded-circle shadow" aria-label="Supprimer l'image {{ loop.index }}"><i class="fas fa-trash small" aria-hidden="true"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% if loop.last %}
+                    <div class="container border-bottom border-2 border-dashed my-3" ></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {# Partie formulaire commune #}
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'role': 'form', 'aria-label': 'Formulaire de création et d\'édition d\'article'}}) }}
         <div class="row">
             <div class="col mb-3">
                 {{ form_label(form.title, null, {'label_attr': {'class': 'w-100'}}) }}
-                {{ form_widget(form.title) }}
+                {{ form_widget(form.title, ) }}
                 {{ form_errors(form.title) }}
             </div>
         </div>

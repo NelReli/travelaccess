@@ -13,7 +13,7 @@
             <tbody>
             {% for comment in comments %}
             <tr>
-                <td>{{ comment.comment|slice(0, 50) ~ '...' }}</td>
+                <td>{{ comment.comment }}</td>
                 <td>{{ comment.author.username }}</td>
                 <td>{{ comment.article.title }}</td>
                     <td>

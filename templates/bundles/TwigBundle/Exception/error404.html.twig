@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée — TravelAccess{% endblock %}
+
+{% block body %}
+
+<div class="d-flex flex-column align-items-center justify-content-center text-center text-light p-4">
+    <h1 class="display-1 fw-bold text-clear">404</h1>
+    <p class="lead text-dark mb-4">
+        Oups ! La page que vous cherchez n'existe pas ou a été déplacée.<br>
+        Pas de panique, votre voyage continue sur TravelAccess.
+    </p>
+
+    <div class="d-flex gap-3">
+        <a href="{{ path('app_home') }}" class="btn btn-dark shadow"><i class="bi bi-house-door-fill"></i> Retour à l'accueil</a>
+    </div>>
+</div>
+
+{% endblock %}

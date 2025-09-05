@@ -7,7 +7,7 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\ArticleType;
 use App\Form\CommentType;
-use App\Repository\ArticleRepository;
+// use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Security\Voter\ArticleCommentVoter;
@@ -23,14 +23,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/article')]
 final class ArticleController extends AbstractController
 {
-    #[Route(name: 'app_article_index', methods: ['GET'])]
-    public function index(ArticleRepository $articleRepository): Response
-    {
-        return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findAll(),
-        ]);
-    }
-
+    // #[Route(name: 'app_article_index', methods: ['GET'])]
+    // public function index(ArticleRepository $articleRepository): Response
+    // {
+    //     return $this->render('article/index.html.twig', [
+    //         'articles' => $articleRepository->findAll(),
+    //     ]);
+    // }
     
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     #[IsGranted(ArticleCommentVoter::NEW)]
@@ -45,12 +44,11 @@ final class ArticleController extends AbstractController
             $article->setCreatedAt(new \DateTimeImmutable());
 
             // Gestion des images
-                $images = $form->get('images')->getData(); // Champ "images" dans le form
-
+                $images = $form->get('images')->getData(); // Champ "images" dans le formulaire
+                $imageArticleSlug = $article->getSlug(); // on récupère le slug 
                 foreach ($images as $imageFile) {
                     // Générer un nom unique
-                    $safeArticleSlug = $slugger->slug($article->getSlug()); 
-                    $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                    $newFilename = $imageArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
                     try {
                     // Déplacer le fichier dans le dossier configuré
                     $imageFile->move(
@@ -134,7 +132,7 @@ final class ArticleController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     #[IsGranted(ArticleCommentVoter::EDIT, 'article')]
-    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -143,10 +141,10 @@ final class ArticleController extends AbstractController
             $images = $form->get('images')->getData();
 
                 if (!empty($images)) {
+                    $imageArticleSlug = $article->getSlug(); 
                     foreach ($images as $imageFile) {
                         // Générer un nom unique
-                        $safeArticleSlug = $slugger->slug($article->getSlug()); 
-                        $newFilename = $safeArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
+                        $newFilename = $imageArticleSlug . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
                         try {
                         // Déplacer les images dans le dossier des uploads: articles
@@ -176,17 +174,29 @@ final class ArticleController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_article_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[Route('/{id}', name: 'app_article_delete', methods: ['DELETE'], requirements: ['id' => Requirement::DIGITS])]
     #[IsGranted(ArticleCommentVoter::DELETE, 'article')]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+
+            // Récupère toutes les images de l’article
+            foreach ($article->getImages() as $image) {
+                $imagePath = $this->getParameter('images_directory') . '/' . $image->getName();
+
+                // Supprime le fichier image du système de fichiers
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+
             $entityManager->remove($article);
             $entityManager->flush();
+
             $this->addFlash('success', 'Article supprimé avec succès !');
         }
 
-        return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 
 }

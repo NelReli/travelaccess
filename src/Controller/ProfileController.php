@@ -16,14 +16,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 final class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
-    public function index(): Response
-    {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
-        ]);
-    }
-    
     #[Route('/profile/{username}', name: 'app_profile_show')]
     public function show(UserRepository $userRepository, ArticleRepository $articleRepository, string $username, CommentRepository $commentRepository): Response
     {
@@ -47,7 +39,7 @@ final class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/{username}/modifier', name: 'app_profile_edit')]
+    #[Route('/profile/{username}/edit', name: 'app_profile_edit')]
     public function edit(Request $request, UserRepository $userRepository, User $user, EntityManagerInterface $em, string $username): Response
     {
         // récupérer le user

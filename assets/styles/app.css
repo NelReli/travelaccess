@@ -30,12 +30,12 @@ p{
     color: #111826;
 }
 
-.text-hero{
-    color: #09487c;
-}
-
 .text-clear{
     color: #2aa5c7;
+}
+
+.text-hero{
+    color: #09487c;
 }
 
 .btn-dark{
@@ -67,11 +67,17 @@ p{
     color: #ffffff;
 }
 
+/* .grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+} */
+
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 120px));
     grid-template-rows: repeat(2, minmax(0, 120px));
     gap: 4px;
+    justify-content: center;
 }
 
 .gallery-img {
@@ -79,12 +85,7 @@ p{
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
-}
-
-.profile-img{
-    height: 100%;
-    object-fit: cover;
-    width: 100%;
+    transition: all 0.3s;
 }
 
 .gallery-img:hover, .profile-img:hover{
@@ -113,11 +114,10 @@ p{
     width: 10%;
 }
 
-.carousel-indicators button {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin: 0 3px;
+.profile-img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
 }
 
 .btn {
@@ -128,10 +128,29 @@ p{
     transform: translateY(-1px);
 }
 
-.grid{
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+/* pagination surcharge css bootstrap */
+.pagination {
+    justify-content: center;
 }
+
+.page-item .page-link {
+    background-color: transparent;  
+    color: #09487c;             
+    border: 1px solid #09487c;
+    transition: all 0.3s;
+}
+
+.page-item .page-link:hover {
+    background-color: #09487c;   
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #09487c;
+    font-weight: bold;
+    color: #fff;
+}
+
 
 @media screen and (max-width: 600px){
     .gallery{
