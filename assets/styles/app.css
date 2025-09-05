@@ -30,12 +30,12 @@ p{
     color: #111826;
 }
 
-.text-hero{
-    color: #09487c;
-}
-
 .text-clear{
     color: #2aa5c7;
+}
+
+.text-hero{
+    color: #09487c;
 }
 
 .btn-dark{
@@ -67,6 +67,11 @@ p{
     color: #ffffff;
 }
 
+/* .grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+} */
+
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 120px));
@@ -81,12 +86,6 @@ p{
     object-fit: cover;
     border-radius: 4px;
     transition: all 0.3s;
-}
-
-.profile-img{
-    height: 100%;
-    object-fit: cover;
-    width: 100%;
 }
 
 .gallery-img:hover, .profile-img:hover{
@@ -115,17 +114,18 @@ p{
     width: 10%;
 }
 
+.profile-img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
 .btn {
     transition: all 0.2s ease-in-out;
 }
 
 .btn:hover {
     transform: translateY(-1px);
-}
-
-.grid{
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
 }
 
 /* pagination surcharge css bootstrap */
@@ -137,7 +137,6 @@ p{
     background-color: transparent;  
     color: #09487c;             
     border: 1px solid #09487c;
-    /* border-radius: 8px; */
     transition: all 0.3s;
 }
 

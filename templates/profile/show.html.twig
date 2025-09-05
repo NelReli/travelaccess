@@ -14,6 +14,8 @@
             </ol>
         </nav>
 
+        <div class="row my-5">
+        
         {# Partie Profile #}
         {% include 'profile/_profile.html.twig' with { user: user } %}
 
@@ -44,9 +46,7 @@
                                     <div class="d-flex justify-content-between align-items-start mb-3">
                                         
                                         <h2 class="fs-3 text-dark mb-0">
-                                            <a href="{{ path('app_article_show', {'slug': article.slug, id: article.id}) }}" class="text-decoration-none text-dark">
-                                                {{ article.title|title }}
-                                            </a>
+                                            <a href="{{ path('app_article_show', {'slug': article.slug, id: article.id}) }}" class="text-decoration-none text-dark">{{ article.title|title }}</a>
                                         </h2>
                                         {% if is_granted('POST_EDIT', article) %}
                                             <div class="dropdown">
