@@ -1,6 +1,5 @@
 <?php
 
-// src/Form/RegistrationFormType.php
 namespace App\Form;
 
 use App\Entity\User;
@@ -18,6 +17,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class RegistrationFormType extends AbstractType
 {

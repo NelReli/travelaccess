@@ -30,7 +30,29 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+
+
+        // Debug express :
+      
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+              dump([
+            'method'        => $request->getMethod(),
+            'isSubmitted'   => $form->isSubmitted(),
+             'isValid'       => $form->isValid(),
+            'isSynchronized'=> $form->isSynchronized(),
+            'post_params'   => $request->request->all(), // ce qui arrive réellement au serveur
+             
+        ]);
+
+                foreach ($form->getErrors(true, true) as $error) {
+                dump([
+                    'message' => $error->getMessage(),
+                    'origin'  => (string) $error->getOrigin()->getName(), // nom du champ
+                ]);
+            }
+
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 

@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
+
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[UniqueEntity('title', message: 'Un article avec ce titre existe déjà.')]
 #[UniqueEntity('slug')]
@@ -23,17 +24,23 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]  
-    private string $title = '';
+    #[Assert\Sequentially([
+        new Assert\NotBlank(message: "Le titre est obligatoire."),
+        new Assert\Length(min: 5),
+    ])]
+    private string $title;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')]
-    private string $slug = '';
+    private string $slug;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 10)]
-    private string $description = '';
+    #[Assert\Sequentially([
+        new Assert\NotBlank,
+        new Assert\Length(min: 10),
+    ])]
+    private string $description;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -61,9 +68,11 @@ class Article
     private ?int $views = 0;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank]
     private ?string $city = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank]
     private ?string $country = null;
 
     public function __construct()

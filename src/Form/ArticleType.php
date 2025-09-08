@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ArticleType extends AbstractType
 {
@@ -70,15 +71,6 @@ class ArticleType extends AbstractType
                 'placeholder' => "Note d'accessibilité (0-5 étoiles)",
                 'required' => false,
             ])
-
-
-            // ->add('createdAt', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('author', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'id',
-            // ])
         ;
     }
 
