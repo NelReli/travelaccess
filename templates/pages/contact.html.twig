@@ -17,8 +17,9 @@
 
     {# Formulaire de contact #}
     <h1 class="text-center m-5 ">Contactez-nous</h1>
+
     <p class="text-center mx-auto" style="max-width: 600px;">Nous sommes là pour vous aider ! N'hésitez pas à nous contacter pour toute question, suggestion ou problème concernant TravelAccess.</p>
-    <div class="container d-flex justify-content-center mt-5 text-light" >
+    <div class="container d-flex justify-content-center mt-5 " >
         <div class="card p-4 shadow rounded-4" style="max-width: 600px; width: 100%; ">
 
             {{ form_start(contactForm) }}
@@ -60,11 +61,14 @@
             {{ form_end(contactForm) }}
         </div>
     </div>
+
+
     <div class="my-4 text-center">
         <a href="{{ path('app_home') }}" class="btn btn-clear-transparent"><i class="fas fa-home"></i> Retour à l'accueil</a>                   
     </div>
 
 </div>
+
 {% endblock %}
 
 

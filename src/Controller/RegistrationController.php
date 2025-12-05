@@ -33,17 +33,15 @@ class RegistrationController extends AbstractController
 
 
         // Debug express :
-      
-
 
         if ($form->isSubmitted() && $form->isValid()) {
-              dump([
+            dump([
             'method'        => $request->getMethod(),
             'isSubmitted'   => $form->isSubmitted(),
-             'isValid'       => $form->isValid(),
+            'isValid'       => $form->isValid(),
             'isSynchronized'=> $form->isSynchronized(),
             'post_params'   => $request->request->all(), // ce qui arrive réellement au serveur
-             
+            
         ]);
 
                 foreach ($form->getErrors(true, true) as $error) {

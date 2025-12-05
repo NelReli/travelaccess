@@ -79,6 +79,10 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'attr' => [
+                'novalidate' => 'novalidate',
+                'data-turbo' => 'false'
+            ],
         ]);
     }
 }

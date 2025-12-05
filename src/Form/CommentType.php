@@ -18,7 +18,7 @@ class CommentType extends AbstractType
         $builder
             ->add('comment', TextareaType::class, [
                 'label' => 'Laisser un commentaire :',
-                'attr' => ['rows' => 4]
+                'attr' => ['rows' => 4],
             ])
             // ->add('createdAt', null, [
             //     'widget' => 'single_text',
@@ -38,6 +38,10 @@ class CommentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Comment::class,
+            'attr' => [
+                'novalidate' => 'novalidate',
+                'data-turbo' => 'false'
+            ],
         ]);
     }
 }

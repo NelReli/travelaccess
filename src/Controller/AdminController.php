@@ -27,8 +27,6 @@ class AdminController extends AbstractController
         $lastUsers = $userRepo->findLastUsers();
 
         return $this->render('admin/dashboard.html.twig', [
-            // 'userCount' => $userRepo->count([]),
-            // 'articleCount' => $articleRepo->count([]),
             'commentCount' => $commentRepo->count([]),
             'lastArticles' => $lastArticles,
             'lastComments' => $lastComments,
@@ -36,7 +34,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    //route pour gerer les users
+    //routes pour gerer les users
     #[Route('/users', name: 'admin_users')]
     public function users(UserRepository $userRepo): Response
     {
@@ -61,7 +59,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_users');
     }
 
-    //route pour gerer les articles
+    //routes pour gerer les articles
     #[Route('/articles', name: 'admin_articles')]
     public function articles(ArticleRepository $articleRepo): Response {
         return $this->render('admin/articles.html.twig', [
@@ -83,7 +81,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_articles');
     }
 
-    //route pour gerer les comments
+    //routes pour gerer les comments
     #[Route('/comments', name: 'admin_comments')]
     public function comments(CommentRepository $commentRepo): Response {
         return $this->render('admin/comments.html.twig', [

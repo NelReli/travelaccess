@@ -1,22 +1,48 @@
-{% if not cookiesAccepted and not cookiesRefused %}
-<div class="modal fade" id="cookieModal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="cookieModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cookieModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-body">
-            <p>Nous utilisons des cookies pour améliorer votre expérience. En poursuivant votre navigation, vous acceptez leur utilisation.</p>
-            <div class="text-end">
-            <a href="{{ path('app_refuse_cookies') }}" class="btn btn-danger me-2">Refuser</a>
-            <a href="{{ path('app_accept_cookies') }}" class="btn btn-success">Accepter</a>
+        <div class="modal-content border-0 shadow-sm rounded-4">
+
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer" id="closeCookieModal"></button>
             </div>
-        </div>
+
+            <div class="modal-body text-center px-4 pb-4">
+                <h5 class="modal-title fw-bold mb-3" id="cookieModalLabel">
+                    Consentement aux cookies
+                </h5>
+                
+                <p class="text-muted mb-4">
+                    Nous utilisons des cookies pour améliorer votre expérience de navigation. 
+                    En continuant, vous acceptez notre utilisation des cookies conformément au RGPD.
+                </p>
+                
+                <div class="mt-3">
+                    <small class="text-muted">
+                        <a href="/mentions" class="text-decoration-none text-hero">
+                            En savoir plus sur notre politique de confidentialité
+                        </a>
+                    </small>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const cookieModal = new bootstrap.Modal(document.getElementById('cookieModal'));
-    cookieModal.show();
+
+    // Vérifie si l'utilisateur a déjà fermé la modal
+    const hasSeenCookieInfo = localStorage.getItem('cookieInfoShown');
+
+    if (!hasSeenCookieInfo) {
+        const cookieModal = new bootstrap.Modal(document.getElementById('cookieModal'));
+        cookieModal.show();
+
+        // Quand l’utilisateur ferme, enregistrer l’info
+        document.getElementById('closeCookieModal').addEventListener('click', () => {
+            localStorage.setItem('cookieInfoShown', 'true');
+        });
+    }
 });
 </script>
-{% endif %}

@@ -1,22 +1,33 @@
-body {
+/* body {
     background:  no-repeat center/cover url(/images/bg.webp);
+} */
+
+body {
+    background:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    /* url(/images/bg.webp) center/cover no-repeat; */
 }
+
 
 h1,h2,h3,h4,h5,h6{
     font-family: "Ubuntu", sans-serif;
+    letter-spacing: 0.08em;
 }
 
 p{
-    color: #595959;
+    color: #292929;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.05em;
 }
 
 .bg-hero{
     background-color: #09487c;
 }
 
-.bg-form{
+/* .bg-form{
     background-color:rgb(253, 234, 197);
-}
+} */
 
 .bg-area{
     background-color:#F2F9FB;
@@ -97,10 +108,6 @@ p{
     color: #09487c;
 }
 
-.link-color{
-    color: #2aa5c7;
-}
-
 .border-buttom{
     border-bottom: 1px solid #09487c;
 }
@@ -119,6 +126,10 @@ p{
     object-fit: cover;
     width: 100%;
 }
+
+/* .blur{
+    filter: blur(10px);
+} */
 
 .btn {
     transition: all 0.2s ease-in-out;

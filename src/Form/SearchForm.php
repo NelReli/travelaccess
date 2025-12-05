@@ -59,6 +59,10 @@ class SearchForm extends AbstractType
             'csrf_protection' => false,
             'cities' => [],
             'countries' => [],
+            'attr' => [
+                'novalidate' => 'novalidate',
+                'data-turbo' => 'false'
+            ],
         ]);
     }
 

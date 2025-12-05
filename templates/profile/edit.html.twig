@@ -51,7 +51,11 @@
 
                 {{ form_widget(form) }}
 
-                <button type="submit" class="btn btn-dark col-12">Enregistrer les modifications</button>
+                <button type="submit" class="btn btn-dark col-12 mb-2">Enregistrer les modifications</button>
+                <a href="{{ path('app_profile_show', {'username': app.user.username} ) }}" class="btn btn-dark col-12">
+                    Annuler
+                </a>
+
             {{ form_end(form) }}
         </div>
     </div>

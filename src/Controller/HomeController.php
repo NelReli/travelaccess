@@ -17,8 +17,6 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ArticleRepository $articleRepository, CommentRepository $commentRepository, Request $request): Response
     {
-        $cookiesAccepted = $request->cookies->get('cookies_accepted') === 'true';
-        $cookiesRefused = $request->cookies->get('cookies_refused') === 'true';
 
         $lastArticles = $articleRepository->findLastArticles();
         $mostViewArticles = $articleRepository->findMostViewArticles();
@@ -34,9 +32,13 @@ final class HomeController extends AbstractController
 
         // Récupération de la page active
         $page = $request->query->getInt('page', 1);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Recherche + tri via repository
+
+        $hasFilter = $request->query->has('q')
+            || $request->query->has('city')
+            || $request->query->has('country')
+            || $request->query->has('order');
+
+        if (($form->isSubmitted() && $form->isValid()) || $hasFilter) {
             $articles = $articleRepository->findSearch($search, $page);
         } else {
             $articles = $articleRepository->paginateArticles($page);
@@ -51,8 +53,6 @@ final class HomeController extends AbstractController
             'lastArticles' => $lastArticles,
             'mostViewArticles' =>  $mostViewArticles,
             'mostCommentArticles' => $mostCommentArticles,
-            'cookiesAccepted' =>$cookiesAccepted,
-            'cookiesRefused' => $cookiesRefused
         ]);
     }
 

@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col mb-3">
                 {{ form_label(form.title, null, {'label_attr': {'class': 'w-100'}}) }}
-                {{ form_widget(form.title, ) }}
+                {{ form_widget(form.title) }}
                 {{ form_errors(form.title) }}
             </div>
         </div>
@@ -72,6 +72,9 @@
         
         {% if article.id %}
             <button type="submit" class="btn btn-dark col-12">Mettre à jour l'article</button>
+            <a href="{{ path('app_article_show', { 'id': article.id, 'slug': article.slug } ) }}" class="btn btn-dark col-12">
+                Annuler
+            </a>
         {% else %}
             <button type="submit" class="btn btn-dark col-12">Publier l'article</button>
         {% endif %}

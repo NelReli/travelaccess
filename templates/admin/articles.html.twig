@@ -13,7 +13,7 @@
 
             {% for article in articles %}
                 <tr>
-                    <td>{{ article.title }}</td>
+                    <td>{{ article.title|title }}</td>
                     <td>{{ article.author.username }}</td>
                     <td>
                         <div class="d-flex gap-2">

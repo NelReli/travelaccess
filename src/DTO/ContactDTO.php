@@ -21,4 +21,5 @@ class ContactDTO
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, minMessage: "Le message doit faire au moins 10 caractères.")]
     public string $message = '';
+
 }

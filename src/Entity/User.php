@@ -58,6 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isVerified = false;
 
     #[ORM\Column(length: 50, unique: true)]
+    #[Assert\NotBlank]
     private ?string $username = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]

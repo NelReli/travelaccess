@@ -91,7 +91,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
                 'label_html' => true, // important pour autoriser les liens HTML
-                'label' => 'J\'accepte <a class="link-color" href="/terms" target="_blank">les conditions d\'utilisation</a> et <a class="link-color" href="/mentions" target="_blank">la politique de confidentialité</a>.'
+                'label' => 'J\'accepte <a class="text-clear" href="/terms" target="_blank">les conditions d\'utilisation</a> et <a class="text-clear" href="/mentions" target="_blank">la politique de confidentialité</a>.'
             ])
         ;
     }
@@ -100,6 +100,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'attr' => ['data-turbo' => 'false'],
         ]);
     }
 }

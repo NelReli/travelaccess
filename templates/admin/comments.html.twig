@@ -15,7 +15,7 @@
             <tr>
                 <td>{{ comment.comment }}</td>
                 <td>{{ comment.author.username }}</td>
-                <td>{{ comment.article.title }}</td>
+                <td>{{ comment.article.title|title }}</td>
                     <td>
                         <form method="post" action="{{ path('admin_delete_comment', { 'id': comment.id}) }}" onsubmit="return confirm('Confirmer la suppression de ce commentaire ?');">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete-comment' ~ comment.id) }}">

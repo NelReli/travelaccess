@@ -24,16 +24,10 @@ final class PagesController extends AbstractController
     {
         $data = new ContactDTO();
 
-        // TODO : supprimer ces valeurs par défaut
-        // $data->name = 'John Doe';
-        // $data->email = 'John@Doe.com';
-        // $data->subject = 'recherche';
-        // $data->message = 'super site';
-
         $form = $this->createForm(ContactType::class, $data);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
 
             try {            
                 // Création du mail
@@ -57,8 +51,6 @@ final class PagesController extends AbstractController
             'contactForm' => $form->createView(),
         ]);
     }
-
-    
 
     #[Route('/mentions', name: 'app_mentions')]
     public function mentions(): Response
