@@ -100,7 +100,10 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attr' => ['data-turbo' => 'false'],
+            'attr' => [
+                'novalidate' => 'novalidate',
+                'data-turbo' => 'false'
+            ],
         ]);
     }
 }
