@@ -57,7 +57,6 @@ class ProfileForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attr' => ['data-turbo' => 'false'],
         ]);
     }
 }

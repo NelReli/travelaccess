@@ -61,7 +61,6 @@ class SearchForm extends AbstractType
             'countries' => [],
             'attr' => [
                 'novalidate' => 'novalidate',
-                'data-turbo' => 'false'
             ],
         ]);
     }

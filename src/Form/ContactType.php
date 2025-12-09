@@ -43,7 +43,6 @@ class ContactType extends AbstractType
             'data_class' => ContactDTO::class,
             'attr' => [
                 'novalidate' => 'novalidate',
-                'data-turbo' => 'false'
             ],
         ]);
     }

@@ -33,7 +33,7 @@ final class PagesController extends AbstractController
                 // Création du mail
                 $email = (new TemplatedEmail())
                     ->from($data->email)
-                    ->to('contact@travelaccess.com')  
+                    ->to('no-replay@nhenni.ma6tvacoder.org')  
                     ->subject($data->subject)
                     ->htmlTemplate('emails/signup.html.twig') // pour personnaliser les emails de contact dans la boite de reception
                     ->context(['data' => $data]);

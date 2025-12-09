@@ -35,21 +35,6 @@ class RegistrationController extends AbstractController
         // Debug express :
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump([
-            'method'        => $request->getMethod(),
-            'isSubmitted'   => $form->isSubmitted(),
-            'isValid'       => $form->isValid(),
-            'isSynchronized'=> $form->isSynchronized(),
-            'post_params'   => $request->request->all(), // ce qui arrive réellement au serveur
-            
-        ]);
-
-                foreach ($form->getErrors(true, true) as $error) {
-                dump([
-                    'message' => $error->getMessage(),
-                    'origin'  => (string) $error->getOrigin()->getName(), // nom du champ
-                ]);
-            }
 
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
@@ -82,7 +67,7 @@ class RegistrationController extends AbstractController
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('nawel.henni@lepoles.org', 'TravelAccess'))
+                    ->from(new Address('no-replay@nhenni.ma6tvacoder.org', 'TravelAccess'))
                     ->to((string) $user->getEmail())
                     ->subject('Veuillez confirmer votre adresse email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')

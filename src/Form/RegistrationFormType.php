@@ -102,7 +102,6 @@ class RegistrationFormType extends AbstractType
             'data_class' => User::class,
             'attr' => [
                 'novalidate' => 'novalidate',
-                'data-turbo' => 'false'
             ],
         ]);
     }

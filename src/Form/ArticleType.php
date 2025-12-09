@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints\Length;
 
 class ArticleType extends AbstractType
 {
@@ -81,7 +80,6 @@ class ArticleType extends AbstractType
             'data_class' => Article::class,
             'attr' => [
                 'novalidate' => 'novalidate',
-                'data-turbo' => 'false'
             ],
         ]);
     }

@@ -1,0 +1,148 @@
+h1,h2,h3,h4,h5,h6{
+    font-family: "Ubuntu", sans-serif;
+    letter-spacing: 0.08em;
+}
+
+p{
+    color: #292929;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.bg-hero{
+    background-color: #09487c;
+}
+
+.bg-area{
+    background-color:#F2F9FB;
+}
+
+.bg-footer{
+    background-color: #111826;
+}
+
+.text-dark{
+    color: #111826;
+}
+
+.text-clear{
+    color: #2aa5c7;
+}
+
+.text-hero{
+    color: #09487c;
+}
+
+.btn-dark{
+    background-color: #09487c;
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-dark:hover{
+    background-color: transparent;
+    border: 1px solid #09487c;
+    color: #09487c;
+}
+
+.btn-clear{
+    background-color: #ffffff;
+    border: 1px solid #09487c;
+    color: #09487c;
+}
+
+.btn-clear-transparent{
+    border: 1px solid #09487c;
+    color: #09487c;
+}
+
+.btn-clear:hover, .btn-clear-transparent:hover{
+    background-color: #09487c;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 120px));
+    grid-template-rows: repeat(2, minmax(0, 120px));
+    gap: 4px;
+    justify-content: center;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.gallery-img:hover, .profile-img:hover{
+    opacity: 50%;
+    box-shadow: 9px 9px 13px -7px rgba(0,0,0,0.75);
+}
+
+.title_article{
+    color: #09487c;
+}
+
+.border-buttom{
+    border-bottom: 1px solid #09487c;
+}
+
+/* carousel surcharge css bootstrap */
+.carousel-item img {
+    border-radius: 0.375rem;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%;
+}
+
+.profile-img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* pagination surcharge css bootstrap */
+.pagination {
+    justify-content: center;
+}
+
+.page-item .page-link {
+    background-color: transparent;  
+    color: #09487c;             
+    border: 1px solid #09487c;
+    transition: all 0.3s;
+}
+
+.page-item .page-link:hover {
+    background-color: #09487c;   
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #09487c;
+    font-weight: bold;
+    color: #fff;
+}
+
+@media screen and (max-width: 600px){
+    .gallery{
+        margin-bottom: 30px;
+    }
+}
+
+
