@@ -89,7 +89,7 @@ class ResetPasswordController extends AbstractController
         $token = $this->getTokenFromSession();
 
         if (null === $token) {
-            throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
+            throw $this->createNotFoundException('Aucun jeton de réinitialisation de mot de passe n\'a été trouvé dans l\'URL ni dans la session.');
         }
 
         try {
@@ -159,7 +159,7 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('no-replay@nhenni.ma6tvacoder.org', 'TravelAccess'))
+            ->from(new Address('nawel.henni@hotmail.com', 'TravelAccess'))
             ->to((string) $user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('reset_password/email.html.twig')

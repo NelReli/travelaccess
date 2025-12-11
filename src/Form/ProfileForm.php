@@ -20,16 +20,16 @@ class ProfileForm extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'disabled' => true, // Affiche mais non modifiable
+                // 'disabled' => true, // Affiche mais non modifiable
             ])
             ->add('lastname', TextType::class, [
-                'disabled' => true, 
+                // 'disabled' => true, 
             ])
             ->add('username', TextType::class, [
-                'disabled' => true,
+                // 'disabled' => true,
             ])
             ->add('email', EmailType::class, [
-                'disabled' => true, 
+                // 'disabled' => true, 
             ])
             ->add('bio', TextareaType::class, [
                 'required' => false,

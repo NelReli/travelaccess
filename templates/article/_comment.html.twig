@@ -1,4 +1,4 @@
-<div class="card p-5 shadow rounded-4 mx-auto" style="max-width: 900px; width: 100%;" aria-label="Commentaires de l'article">
+<div class="card p-sm-5 p-4 shadow rounded-4 mx-auto" style="max-width: 900px; width: 100%;" aria-label="Commentaires de l'article">
     <h5 class="mb-5"><i class="fa-regular fa-comment" aria-hidden="true"></i> Commentaires : <span class="me-3" aria-label="{{ commentCounts[article.id]|default(0) }} commentaire(s)"> {{ commentCounts[article.id]|default(0) }}</span></h5>
     {% if  is_granted('IS_AUTHENTICATED_FULLY')  %}
         <div>
@@ -21,7 +21,7 @@
     {% endif %}
 
     {% for comment in article.comments %}
-        <div class="comment row p-4" aria-label="Commentaire de {{ comment.author.username }}">
+        <div class="comment row " aria-label="Commentaire de {{ comment.author.username }}">
             <div class="col-2 d-none d-md-block text-center"><img class="rounded-circle shadow-sm img-thumbnail" src="{{ asset('images/avatars/' ~ comment.author.avatar) }}" alt=" avatar de l'utilisateur {{ comment.author.username}}" height="70" width="70"></div>
                 <div class="col-md-10 col-12 bg-area rounded-4 mb-3 p-3">
                     <div class="d-flex justify-content-between ">
