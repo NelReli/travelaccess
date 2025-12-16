@@ -21,9 +21,9 @@
     {% endif %}
 
     {% for comment in article.comments %}
-        <div class="comment row " aria-label="Commentaire de {{ comment.author.username }}">
+        <div class="row p-2" aria-label="Commentaire de {{ comment.author.username }}">
             <div class="col-2 d-none d-md-block text-center"><img class="rounded-circle shadow-sm img-thumbnail" src="{{ asset('images/avatars/' ~ comment.author.avatar) }}" alt=" avatar de l'utilisateur {{ comment.author.username}}" height="70" width="70"></div>
-                <div class="col-md-10 col-12 bg-area rounded-4 mb-3 p-3">
+                <div class="col-md-10 col-12 bg-area rounded-4 p-3">
                     <div class="d-flex justify-content-between ">
                         <p>{{ comment.author.username }}</p>
                         <p><small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small></p>

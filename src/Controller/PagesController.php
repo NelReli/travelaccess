@@ -45,7 +45,7 @@ final class PagesController extends AbstractController
                 $this->addFlash('danger', 'Erreur lors d\'envoi de votre message : ' . $e->getMessage());
             }
 
-            return $this->redirectToRoute('app_contact');
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('pages/contact.html.twig', [

@@ -4,9 +4,9 @@
 
 {% block body %}
     <div class="container card mt-5">
-        <div class="card-title text-center mt-3"><p> E-mail de réinitialisation du mot de passe envoyé </p></div>
+        <div class="card-title text-center mt-3"><h5> E-mail de réinitialisation du mot de passe envoyé </h5></div>
         <div class="card-body">
-            <p class="card-text text-center">Si un compte correspondant à votre adresse e-mail existe, cela signifie qu'un e-mail contenant un lien vous permettant de réinitialiser votre mot de passe vient de vous être envoyé.
+            <p class="card-text text-center">Si votre adresse e-mail correspond à un compte existant, un e-mail contenant un lien de réinitialisation de mot de passe vient de vous être envoyé.
             Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
             <p class="card-text text-center">Si vous ne recevez pas d'e-mail, veuillez vérifier vos spams ou <a href="{{ path('app_forgot_password_request') }}">réessayer</a>.</p>
         </div>
