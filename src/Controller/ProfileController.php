@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Form\ProfileForm;
 use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
@@ -40,7 +39,7 @@ final class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{username}/edit', name: 'app_profile_edit')]
-    public function edit(Request $request, UserRepository $userRepository, User $user, EntityManagerInterface $em, string $username): Response
+    public function edit(Request $request, UserRepository $userRepository, EntityManagerInterface $em, string $username): Response
     {
         // récupérer le user
         $user = $userRepository->findOneBy(['username' => $username]);
