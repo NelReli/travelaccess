@@ -17,9 +17,10 @@
                 <td>{{ comment.author.username }}</td>
                 <td>{{ comment.article.title|title }}</td>
                     <td>
-                        <form method="post" action="{{ path('admin_delete_comment', { 'id': comment.id}) }}" onsubmit="return confirm('Confirmer la suppression de ce commentaire ?');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete-comment' ~ comment.id) }}">
-                            <button class="btn btn-danger btn-sm">Supprimer</button>
+                        <form method="post" action="{{ path('admin_delete_comment', {'id': comment.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?')";>
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete_comment_' ~ comment.id) }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                         </form>
                     </td>
                 </tr>

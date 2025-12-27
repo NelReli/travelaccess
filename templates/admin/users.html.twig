@@ -23,9 +23,10 @@
                         <td>
                             <div class="d-flex gap-2">
                                 <a class="btn btn-primary btn-sm" href="{{ path('app_profile_show', { username: key.user.username } )}}"><i class="bi bi-eye"></i></a>    
-                                <form method="post" action="{{ path('admin_delete_user', { 'id': key.user.id}) }}" onsubmit="return confirm('Confirmer la suppression de cet utilisateur ?');">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete-user' ~ key.user.id) }}">
-                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button>
+                                <form method="post" action="{{ path('admin_delete_user', {'id': key.user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')";>
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete_user_' ~ key.user.id) }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                                 </form>
                             </div>
                         </td>

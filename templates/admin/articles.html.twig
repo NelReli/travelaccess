@@ -18,9 +18,10 @@
                     <td>
                         <div class="d-flex gap-2">
                             <a class="btn btn-primary btn-sm" href="{{ path('app_article_show', { id: article.id, slug: article.slug } )}}"><i class="bi bi-eye"></i></a>    
-                                <form method="post" action="{{ path('admin_delete_article', {'slug': article.slug, 'id': article.id}) }}" onsubmit="return confirm('Confirmer la suppression de cet utilisateur ?');">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete-article' ~ article.id) }}">
-                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button>
+                                <form method="post" action="{{ path('admin_delete_article', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete_article_' ~ article.id) }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                                 </form>
                         </div>
                     </td>   
