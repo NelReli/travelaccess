@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Data\SearchData;
+use App\DTO\SearchDTO;
 use App\Form\SearchForm;
 use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
@@ -21,7 +21,7 @@ final class HomeController extends AbstractController
         $lastArticles = $articleRepository->findLastArticles();
         $mostViewArticles = $articleRepository->findMostViewArticles();
         $mostCommentArticles = $articleRepository->findMostCommentArticles();
-        $search = new SearchData(); // nouvel objet pour la recherche
+        $search = new SearchDTO(); // nouvel objet pour la recherche
         $cities = $articleRepository->findAllCities();
         $countries = $articleRepository->findAllCountries();
         $form = $this->createForm(SearchForm::class, $search, [
@@ -33,16 +33,7 @@ final class HomeController extends AbstractController
         // Récupération de la page active
         $page = $request->query->getInt('page', 1);
 
-        $hasFilter = $request->query->has('q')
-            || $request->query->has('city')
-            || $request->query->has('country')
-            || $request->query->has('order');
-
-        if (($form->isSubmitted() && $form->isValid()) || $hasFilter) {
-            $articles = $articleRepository->findSearch($search, $page);
-        } else {
-            $articles = $articleRepository->paginateArticles($page);
-        }
+        $articles = $articleRepository->findSearch($search, $page);
 
         $commentCounts = $commentRepository->commentCountByArticleId();
 

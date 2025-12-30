@@ -3,7 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Article;
-use App\Data\SearchData;
+use App\DTO\SearchDTO;
+// use App\Data\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
@@ -105,18 +106,18 @@ class ArticleRepository extends ServiceEntityRepository
 
 
     // pagination
-    public function paginateArticles(int $page): PaginationInterface  
-    { 
-        return $this->paginator->paginate( $this->createQueryBuilder('a')
-            ->orderBy('a.createdAt', 'DESC'), 
-            $page, 
-            5
-        ); 
-    }
+    // public function paginateArticles(int $page): PaginationInterface  
+    // { 
+    //     return $this->paginator->paginate( $this->createQueryBuilder('a')
+    //         ->orderBy('a.createdAt', 'DESC'), 
+    //         $page, 
+    //         5
+    //     ); 
+    // }
 
 
     // pagination et filtre
-    public function findSearch(SearchData $search, int $page): PaginationInterface
+    public function findSearch(SearchDTO $search, int $page): PaginationInterface
     {
         $query = $this->createQueryBuilder('a')
             ->leftJoin('a.comments', 'c')

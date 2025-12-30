@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Data\SearchData;
+use App\DTO\SearchDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,7 +54,7 @@ class SearchForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => SearchData::class,
+            'data_class' => SearchDTO::class,
             'method' => 'GET',
             'csrf_protection' => false,
             'cities' => [],
