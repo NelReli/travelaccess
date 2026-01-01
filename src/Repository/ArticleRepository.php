@@ -144,13 +144,16 @@ class ArticleRepository extends ServiceEntityRepository
         // Tri dynamique
         switch ($search->order) {
             case 'views':
-                $query->orderBy('a.views', 'DESC');
+                $query->orderBy('a.views', 'DESC')
+                ->addOrderBy('a.createdAt', 'DESC');
                 break;
             case 'comments':
-                $query->orderBy('commentsCount', 'DESC');
+                $query->orderBy('commentsCount', 'DESC')
+                ->addOrderBy('a.createdAt', 'DESC');
                 break;
             case 'accessibility':
-                $query->orderBy('a.rating', 'DESC');
+                $query->orderBy('a.rating', 'DESC')
+                ->addOrderBy('a.createdAt', 'DESC');
                 break;
             default:
                 $query->orderBy('a.createdAt', 'DESC'); // par défaut
