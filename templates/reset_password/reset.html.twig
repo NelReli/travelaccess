@@ -3,12 +3,28 @@
 {% block title %}Réinitialisation de mot de passe{% endblock %}
 
 {% block body %}
-    <h1>Réinitialiser votre mot de passe</h1>
+    <h1 class="text-center mt-5 mb-5 fs-4">Réinitialiser votre mot de passe</h1>
     <div class="container d-flex justify-content-center ">
-        <div class="card  p-5 shadow rounded-4" style="max-width: 650px; width: 100%; ">
-            {{ form_start(resetForm) }}
-                {{ form_row(resetForm.plainPassword) }}
-                <button class="btn btn-dark">Réinitialiser</button>
+        <div class="card p-5 shadow rounded-4" style="max-width: 500px; width: 100%; ">
+            {{ form_start(resetForm, {'attr': {'role': 'form', 'aria-label': 'Formulaire de réinitialisation de mot de passe'}}) }}
+
+                <div class="col-12 mb-3">
+                    {{ form_label(resetForm.plainPassword.first, null, {'label_attr': {'class': 'w-100'}}) }}
+                    {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(resetForm.plainPassword.first) }}
+                </div>
+
+                <div class="col-12 mb-3">
+                    {{ form_label(resetForm.plainPassword.second, null, {'label_attr': {'class': 'w-100'}}) }}
+                    {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(resetForm.plainPassword.second) }}
+                </div>
+
+                <div class="form-text mb-3">
+                    Le mot de passe doit contenir au minimum 12 caractères avec majuscules, minuscules, chiffres et caractères spéciaux.
+                </div>
+
+                <button class="btn btn-dark col-12">Réinitialiser</button>
             {{ form_end(resetForm) }}
         </div>
     </div>

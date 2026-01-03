@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container card mt-5">
-        <div class="card-title text-center mt-3"><h5> E-mail de réinitialisation du mot de passe envoyé </h5></div>
+        <div class="card-title text-center mt-3 fs-4"><h1> E-mail de réinitialisation du mot de passe envoyé </h1></div>
         <div class="card-body">
             <p class="card-text text-center">Si votre adresse e-mail correspond à un compte existant, un e-mail contenant un lien de réinitialisation de mot de passe vient de vous être envoyé.
             Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
