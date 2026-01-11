@@ -81,13 +81,14 @@
                     </div>
                 </div>
             {% endfor %}
+        </div>
+        
+        {# pagination #}
+        <div class='pagination mt-5 justify-content-center' role="navigation" aria-label="Pagination des articles" >
+            {{ knp_pagination_render(articles) }}
+        </div>
+    </div>
 
-                    </div>
-                    {# pagination #}
-                    <div class='pagination mt-5 justify-content-center' role="navigation" aria-label="Pagination des articles" >
-                        {{ knp_pagination_render(articles) }}
-                    </div>
-                </div>
 {% include 'home/_cookie.html.twig' %}
 
 {% endblock %}

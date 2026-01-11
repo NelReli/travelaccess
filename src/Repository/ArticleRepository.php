@@ -121,7 +121,8 @@ class ArticleRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('a')
             ->leftJoin('a.comments', 'c')
-            ->addSelect('COUNT(c.id) as HIDDEN commentsCount');
+            ->addSelect('COUNT(c.id) as HIDDEN commentsCount')
+            ->groupBy('a.id');
 
         // Recherche par titre
         if (!empty($search->q)) {
@@ -158,9 +159,6 @@ class ArticleRepository extends ServiceEntityRepository
             default:
                 $query->orderBy('a.createdAt', 'DESC'); // par défaut
         }
-
-        $query->groupBy('a.id');
-        $query = $query->getQuery();
 
         return $this->paginator->paginate(
             $query,        

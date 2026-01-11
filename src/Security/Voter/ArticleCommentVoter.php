@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Article;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class ArticleCommentVoter extends Voter
@@ -17,13 +16,10 @@ final class ArticleCommentVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // pas de verification de subject a la creation (n existe pas encore)
-        // subject fait reference a l'entité de l objet crée
         if ($attribute === self::NEW) {
             return true;
         }
 
-        // Pour l'édition et suppression, le subject doit être Article, Comment ou User
         return in_array($attribute, [self::EDIT, self::DELETE])
             && ($subject instanceof Article 
                 || $subject instanceof Comment
@@ -31,7 +27,7 @@ final class ArticleCommentVoter extends Voter
             );
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
@@ -47,26 +43,24 @@ final class ArticleCommentVoter extends Voter
 
         switch ($attribute) {
             case self::NEW:
-                // Tous les utilisateurs connectés peuvent créer un article ou commentaire
                 return true;
 
-            // Vérification et comparaison l’auteur de l’objet avec l’utilisateur connecté
-            // que c'est bien l utilisateur connecte, ou que c'est bien l auteur 
             case self::EDIT:
             case self::DELETE:
-                // Vérifier si le subject est un User
+                // édition de son propre profil
                 if ($subject instanceof User) {
-                    return $subject === $user;
+                    return $subject->getId() === $user->getId();
                 }
 
-                // Vérifier si le subject a un auteur
+                // vérifier l'auteur de l article ou comment
                 if (method_exists($subject, 'getAuthor')) {
-                    return $subject->getAuthor() === $user;
+                    return $subject->getAuthor()->getId() === $user->getId();
                 }
 
-                return false;
+            return false;
         }
 
         return false;
     }
 }
+
